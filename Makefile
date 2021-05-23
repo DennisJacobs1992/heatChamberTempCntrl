@@ -44,7 +44,7 @@
 
 DEBUG = -O3
 CC = gcc
-INCLUDE = -I/usr/local/include -I/home/pi/dev/GUIslice/src -I/home/pi/dev/GUIslice/configs
+INCLUDE = -I/usr/local/include -I/home/pi/dev/GUIslice/src -I/home/pi/dev/GUIslice/configs -I/home/pi/dev/GUIslice/src/elem
 CFLAGS = $(DEBUG) -Wall $(INCLUDE) -Winline -pipe -g
 LDFLAGS = -L/usr/local/lib
 
