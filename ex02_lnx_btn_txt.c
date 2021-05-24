@@ -144,7 +144,7 @@ int main( int argc, char* args[] )
 
   // Create buttons
   pElemRef = gslc_ElemCreateBtnTxt(&m_gui,E_ELEM_BTN_QUIT,E_PG_MAIN,
-    (gslc_tsRect){140,100,80,40},"Quit",0,E_FONT_BTN,&CbBtnQuit);
+    (gslc_tsRect){320,100,80,40},"Quit",0,E_FONT_BTN,&CbBtnQuit);
 /* 
   pElemRef = gslc_ElemCreateBtnTxt(&m_gui,E_ELEM_BTN_LIGHT,E_PG_MAIN,
     (gslc_tsRect){20,20,100,50},"Light",0,E_FONT_BTN,&CbBtnLight);
