@@ -9,3 +9,6 @@ link_directories(${CMAKE_SOURCE_DIR} /usr/local/lib)
 project(heatingChamberTempCntrl)
 
 add_executable(${PROJECT_NAME} main.c)
+
+
+
