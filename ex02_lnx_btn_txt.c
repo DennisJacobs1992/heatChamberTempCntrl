@@ -31,7 +31,6 @@ gslc_tsPage                 m_asPage[MAX_PAGE];
 gslc_tsElem                 m_asPageElem[MAX_ELEM_PG_MAIN];
 gslc_tsElemRef              m_asPageElemRef[MAX_ELEM_PG_MAIN];
 
-
 // Configure environment variables suitable for display
 // - These may need modification to match your system
 //   environment and display type
@@ -69,6 +68,14 @@ bool CbBtnQuit(void* pvGui,void *pvElemRef,gslc_teTouch eTouch,int16_t nX,int16_
   return true;
 }
 
+bool CbBtnLight(void* pvGui,void *pvElemRef,gslc_teTouch eTouch,int16_t nX,int16_t nY)
+{
+  if (eTouch == GSLC_TOUCH_UP_IN) {
+    m_bQuit = true;
+  }
+  return true;
+}
+
 int main( int argc, char* args[] )
 {
   bool              bOk = true;
@@ -99,6 +106,10 @@ int main( int argc, char* args[] )
   // Create Quit button with text label
   pElemRef = gslc_ElemCreateBtnTxt(&m_gui,E_ELEM_BTN_QUIT,E_PG_MAIN,
     (gslc_tsRect){90,100,80,40},"Quit",0,E_FONT_BTN,&CbBtnQuit);
+  
+  // Create Light button with text label
+  pElemRef = gslc_ElemCreateBtnTxt(&m_gui,E_ELEM_BTN_QUIT,E_PG_MAIN,
+    (gslc_tsRect){20,20,100,50},"Light",0,E_FONT_BTN,&CbBtnLight);
 
   // -----------------------------------
   // Start display
