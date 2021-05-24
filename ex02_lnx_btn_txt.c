@@ -16,9 +16,9 @@
 // Enumerations for pages, elements, fonts, images
 enum {E_PG_MAIN};
 enum {  E_ELEM_BOX,
-        E_ELEM_BTN_QUIT,
-        E_ELEM_BTN_LIGHT};
-        /*        
+        E_ELEM_BTN_QUIT};
+        /*  
+        E_ELEM_BTN_LIGHT,       
         E_ELEM_BTN_MinTempPlus,
         E_ELEM_BTN_MinTempMinus,
         E_ELEM_BTN_MaxTempPlus,
@@ -78,12 +78,12 @@ bool CbBtnQuit(void* pvGui,void *pvElemRef,gslc_teTouch eTouch,int16_t nX,int16_
   return true;
 }
 
+/*
 bool CbBtnLight(void* pvGui,void *pvElemRef,gslc_teTouch eTouch,int16_t nX,int16_t nY)
 {
   return true;
 }
 
-/*
 bool CbBtnMinTempPlus(void* pvGui,void *pvElemRef,gslc_teTouch eTouch,int16_t nX,int16_t nY)
 {
   return true;
@@ -145,10 +145,10 @@ int main( int argc, char* args[] )
   // Create buttons
   pElemRef = gslc_ElemCreateBtnTxt(&m_gui,E_ELEM_BTN_QUIT,E_PG_MAIN,
     (gslc_tsRect){140,100,80,40},"Quit",0,E_FONT_BTN,&CbBtnQuit);
-  
+/* 
   pElemRef = gslc_ElemCreateBtnTxt(&m_gui,E_ELEM_BTN_LIGHT,E_PG_MAIN,
     (gslc_tsRect){20,20,100,50},"Light",0,E_FONT_BTN,&CbBtnLight);
-/*  
+ 
   pElemRef = gslc_ElemCreateBtnTxt(&m_gui,E_ELEM_BTN_MaxTempPlus,E_PG_MAIN,
     (gslc_tsRect){360,20,100,50},"+ MAX",0,E_FONT_BTN,&CbBtnMaxTempPlus);
   
