@@ -26,7 +26,9 @@ enum {  E_ELEM_BOX,
         E_ELEM_BTN_DeafaultForPLA,
         E_ELEM_BTN_DeafaultForABS};
         */
-enum {E_FONT_BTN,MAX_FONT};
+enum {  E_FONT_BTN,
+        E_FONT_BTN_LIGHT,
+        MAX_FONT};
 
 bool    m_bQuit = false;
 
@@ -146,7 +148,7 @@ int main( int argc, char* args[] )
     (gslc_tsRect){320,100,80,40},"Quit",0,E_FONT_BTN,&CbBtnQuit);
  
   pElemRef = gslc_ElemCreateBtnTxt(&m_gui,E_ELEM_BTN_LIGHT,E_PG_MAIN,
-    (gslc_tsRect){20,20,100,50},"Light",0,E_FONT_BTN,&CbBtnLight);
+    (gslc_tsRect){20,20,80,40},"Ligh",0,E_FONT_BTN_LIGHT,&CbBtnLight);
 /*
   pElemRef = gslc_ElemCreateBtnTxt(&m_gui,E_ELEM_BTN_MaxTempPlus,E_PG_MAIN,
     (gslc_tsRect){360,20,100,50},"+ MAX",0,E_FONT_BTN,&CbBtnMaxTempPlus);
@@ -182,7 +184,7 @@ int main( int argc, char* args[] )
     gslc_Update(&m_gui);
 
   } // bQuit
-  
+
   // -----------------------------------
   // Close down display
 
