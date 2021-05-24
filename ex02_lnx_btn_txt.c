@@ -129,9 +129,9 @@ int main( int argc, char* args[] )
 
   // Load Fonts
   bOk = gslc_FontSet(&m_gui,E_FONT_BTN,GSLC_FONTREF_FNAME,FONT1,12);
-  bOk = gslc_FontSet(&m_gui,E_FONT_BTN_LIGHT,GSLC_FONTREF_FNAME,FONT1,12);
   if (!bOk) { printf("ERROR: gslc_FontSet() failed\n"); exit(1); }
 
+  gslc_FontSet(&m_gui,E_FONT_BTN_LIGHT,GSLC_FONTREF_FNAME,FONT1,12);
 
   // -----------------------------------
   // Create page elements
