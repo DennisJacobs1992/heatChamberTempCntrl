@@ -161,7 +161,7 @@ int main( int argc, char* args[] )
   bOk = gslc_FontSet(&m_gui,E_FONT_TXT,GSLC_FONTREF_FNAME,FONT1,30);
   if (!bOk) { fprintf(stderr,"ERROR: FontSet failed\n"); exit(1); }
 
-  bOk = gslc_FontSet(&m_gui,E_FONT_TXTBIG,GSLC_FONTREF_FNAME,FONT1,50);
+  bOk = gslc_FontSet(&m_gui,E_FONT_TXTBIG,GSLC_FONTREF_FNAME,FONT1,100);
   if (!bOk) { fprintf(stderr,"ERROR: FontSet failed\n"); exit(1); }
 
   // -----------------------------------
@@ -236,8 +236,12 @@ int main( int argc, char* args[] )
     "~C",0,E_FONT_TXT);
   gslc_ElemSetTxtCol(&m_gui,pElemRef,GSLC_COL_GRAY_LT2);
 
-  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_DATATEMPREAD,E_PG_MAIN,(gslc_tsRect){20,200,100,100},
+  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_DATATEMPREAD,E_PG_MAIN,(gslc_tsRect){20,220,120,120},
     "",0,E_FONT_TXTBIG);
+  gslc_ElemSetTxtCol(&m_gui,pElemRef,GSLC_COL_GRAY_LT2);
+
+  pElemRef = gslc_ElemCreateTxt(&m_gui,GSLC_ID_AUTO,E_PG_MAIN,(gslc_tsRect){140,260,25,50},
+    "~C",0,E_FONT_TXT);
   gslc_ElemSetTxtCol(&m_gui,pElemRef,GSLC_COL_GRAY_LT2);
 
 
