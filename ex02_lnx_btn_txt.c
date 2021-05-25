@@ -26,7 +26,10 @@ enum {  E_ELEM_BOX,
         E_ELEM_BTN_DeafaultForABS,
         E_ELEM_BTN_TimePlus,
         E_ELEM_BTN_TimeMinus,
-        E_ELEM_BTN_StartStop};
+        E_ELEM_BTN_StartStop,
+        E_ELEM_DATATIME,
+        E_ELEM_DATATEMPMIN,
+        E_ELEM_DATATEMPMAX};
 enum {  E_FONT_BTN,
         E_FONT_BTN_LIGHT,
         MAX_FONT};
@@ -34,9 +37,13 @@ enum {  E_FONT_BTN,
 bool    m_bQuit = false;
 char StartStop[5]= "Start";
 
+float     dataTimeDuration = 1;
+float     dataTempMax = 2;
+float     dataTempMin = 3;
+
 // Instantiate the GUI
 #define MAX_PAGE            1
-#define MAX_ELEM_PG_MAIN    12
+#define MAX_ELEM_PG_MAIN    15
 
 gslc_tsGui                  m_gui;
 gslc_tsDriver               m_drv;
@@ -150,6 +157,9 @@ int main( int argc, char* args[] )
   bOk = gslc_FontSet(&m_gui,E_FONT_BTN,GSLC_FONTREF_FNAME,FONT1,20);
   if (!bOk) { printf("ERROR: gslc_FontSet() failed\n"); exit(1); }
 
+  bOk = gslc_FontSet(&m_gui,E_FONT_TXT,GSLC_FONTREF_FNAME,FONT1,20);
+  if (!bOk) { fprintf(stderr,"ERROR: FontSet failed\n"); exit(1); }
+
   // -----------------------------------
   // Create page elements
   gslc_PageAdd(&m_gui,E_PG_MAIN,m_asPageElem,MAX_ELEM_PG_MAIN,m_asPageElemRef,MAX_ELEM_PG_MAIN);
@@ -193,7 +203,24 @@ int main( int argc, char* args[] )
     (gslc_tsRect){180,80,100,50},"- TIME",0,E_FONT_BTN,&CbBtnTimeMinus);
 
   pElemRef = gslc_ElemCreateBtnTxt(&m_gui,E_ELEM_BTN_StartStop,E_PG_MAIN,
-    (gslc_tsRect){180,80,290,50},StartStop,0,E_FONT_BTN,&CbBtnStartStop);
+    (gslc_tsRect){180,10,290,50},StartStop,0,E_FONT_BTN,&CbBtnStartStop);
+
+  // Create texts
+  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_DATATIME,E_PG_MAIN,(gslc_tsRect){280,80,100,50},
+    "",0,E_FONT_TXT);
+  gslc_ElemSetTxtCol(&m_gui,pElemRef,GSLC_COL_GRAY_LT2);
+
+  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_DATATEMPMAX,E_PG_MAIN,(gslc_tsRect){280,200,100,50},
+    "",0,E_FONT_TXT);
+  gslc_ElemSetTxtCol(&m_gui,pElemRef,GSLC_COL_GRAY_LT2);
+
+  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_DATATEMPMIN,E_PG_MAIN,(gslc_tsRect){280,260,100,50},
+    "",0,E_FONT_TXT);
+  gslc_ElemSetTxtCol(&m_gui,pElemRef,GSLC_COL_GRAY_LT2);
+
+  gslc_tsElemRef*  pElemDataTime      = gslc_PageFindElemById(&m_gui,E_PG_MAIN,E_ELEM_DATATIME);
+  gslc_tsElemRef*  pElemDataTempMax   = gslc_PageFindElemById(&m_gui,E_PG_MAIN,E_ELEM_DATATEMPMAX);
+  gslc_tsElemRef*  pElemDataTempMin   = gslc_PageFindElemById(&m_gui,E_PG_MAIN,E_ELEM_DATATEMPMIN);
 
   // -----------------------------------
   // Start display
@@ -206,7 +233,13 @@ int main( int argc, char* args[] )
 
   m_bQuit = false;
   while (!m_bQuit) {
-
+    
+    snprintf(acTxt,MAX_STR,"%4.2f",dataTimeDuration);
+    gslc_ElemSetTxtStr(&m_gui,pElemDataTime,acTxt);
+    snprintf(acTxt,MAX_STR,"%4.2f",dataTempMax);
+    gslc_ElemSetTxtStr(&m_gui,pElemDataTempMax,acTxt);
+    snprintf(acTxt,MAX_STR,"%4.2f",dataTempMin);
+    gslc_ElemSetTxtStr(&m_gui,pElemDataTempMin,acTxt);
     // Periodically call GUIslice update function
     gslc_Update(&m_gui);
 
