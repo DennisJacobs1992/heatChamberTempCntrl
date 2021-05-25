@@ -44,7 +44,7 @@ int     dataTempMin = 2;
 
 // Instantiate the GUI
 #define MAX_PAGE            1
-#define MAX_ELEM_PG_MAIN    15
+#define MAX_ELEM_PG_MAIN    17
 
 gslc_tsGui                  m_gui;
 gslc_tsDriver               m_drv;
@@ -182,6 +182,12 @@ int main( int argc, char* args[] )
   pElemRef = gslc_ElemCreateBtnTxt(&m_gui,E_ELEM_BTN_LIGHT,E_PG_MAIN,
     (gslc_tsRect){10,260,100,50},"Light",0,E_FONT_BTN,&CbBtnLight);
 
+  pElemRef = gslc_ElemCreateBtnTxt(&m_gui,E_ELEM_BTN_TimePlus,E_PG_MAIN,
+    (gslc_tsRect){370,80,100,50},"+ TIME",0,E_FONT_BTN,&CbBtnTimePlus);
+  
+  pElemRef = gslc_ElemCreateBtnTxt(&m_gui,E_ELEM_BTN_TimeMinus,E_PG_MAIN,
+    (gslc_tsRect){180,80,100,50},"- TIME",0,E_FONT_BTN,&CbBtnTimeMinus);
+
   pElemRef = gslc_ElemCreateBtnTxt(&m_gui,E_ELEM_BTN_MaxTempPlus,E_PG_MAIN,
     (gslc_tsRect){370,200,100,50},"+ MAX",0,E_FONT_BTN,&CbBtnMaxTempPlus);
   
@@ -199,12 +205,6 @@ int main( int argc, char* args[] )
  
   pElemRef = gslc_ElemCreateBtnTxt(&m_gui,E_ELEM_BTN_DeafaultForABS,E_PG_MAIN,
     (gslc_tsRect){335,140,100,50},"ABS",0,E_FONT_BTN,&CbBtnLoadDeafaultForABS);
-
-  pElemRef = gslc_ElemCreateBtnTxt(&m_gui,E_ELEM_BTN_TimePlus,E_PG_MAIN,
-    (gslc_tsRect){370,80,100,50},"+ TIME",0,E_FONT_BTN,&CbBtnTimePlus);
-  
-  pElemRef = gslc_ElemCreateBtnTxt(&m_gui,E_ELEM_BTN_TimeMinus,E_PG_MAIN,
-    (gslc_tsRect){180,80,100,50},"- TIME",0,E_FONT_BTN,&CbBtnTimeMinus);
 
   pElemRef = gslc_ElemCreateBtnTxt(&m_gui,E_ELEM_BTN_StartStop,E_PG_MAIN,
     (gslc_tsRect){180,10,290,50},StartStop,0,E_FONT_BTN,&CbBtnStartStop);
