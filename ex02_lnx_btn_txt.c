@@ -16,7 +16,6 @@
 // Enumerations for pages, elements, fonts, images
 enum {  E_PG_MAIN};
 enum {  E_ELEM_BOX,
-        E_ELEM_BTN_QUIT,
         E_ELEM_BTN_LIGHT,       
         E_ELEM_BTN_MinTempPlus,
         E_ELEM_BTN_MinTempMinus,
@@ -30,10 +29,12 @@ enum {  E_ELEM_BOX,
         E_ELEM_DATATIMEH,
         E_ELEM_DATATIMEM,
         E_ELEM_DATATEMPMIN,
-        E_ELEM_DATATEMPMAX};
+        E_ELEM_DATATEMPMAX,
+        E_ELEM_DATATEMPREAD};
 enum {  E_FONT_BTN,
         E_FONT_BTN_LIGHT,
         E_FONT_TXT,
+        E_FONT_TXTBIG,
         MAX_FONT};
 
 bool    m_bQuit = false;
@@ -43,6 +44,7 @@ int     dataTimeDurationH = 4;
 int     dataTimeDurationM = 4;
 int     dataTempMax = 68;
 int     dataTempMin = 2;
+int     dataTempRead = 78;
 
 // Instantiate the GUI
 #define MAX_PAGE            1
@@ -86,13 +88,6 @@ void UserInitEnv()
 static int16_t DebugOut(char ch) { fputc(ch,stderr); return 0; }
 
 // Button callbacks
-bool CbBtnQuit(void* pvGui,void *pvElemRef,gslc_teTouch eTouch,int16_t nX,int16_t nY)
-{
-  if (eTouch == GSLC_TOUCH_UP_IN) {
-    m_bQuit = true;
-  }
-  return true;
-}
 
 bool CbBtnLight(void* pvGui,void *pvElemRef,gslc_teTouch eTouch,int16_t nX,int16_t nY)
 {
@@ -166,6 +161,9 @@ int main( int argc, char* args[] )
   bOk = gslc_FontSet(&m_gui,E_FONT_TXT,GSLC_FONTREF_FNAME,FONT1,30);
   if (!bOk) { fprintf(stderr,"ERROR: FontSet failed\n"); exit(1); }
 
+  bOk = gslc_FontSet(&m_gui,E_FONT_TXTBIG,GSLC_FONTREF_FNAME,FONT1,50);
+  if (!bOk) { fprintf(stderr,"ERROR: FontSet failed\n"); exit(1); }
+
   // -----------------------------------
   // Create page elements
   gslc_PageAdd(&m_gui,E_PG_MAIN,m_asPageElem,MAX_ELEM_PG_MAIN,m_asPageElemRef,MAX_ELEM_PG_MAIN);
@@ -178,11 +176,9 @@ int main( int argc, char* args[] )
   gslc_ElemSetCol(&m_gui,pElemRef,GSLC_COL_WHITE,GSLC_COL_BLACK,GSLC_COL_BLACK);
 
   // Create buttons
-  pElemRef = gslc_ElemCreateBtnTxt(&m_gui,E_ELEM_BTN_QUIT,E_PG_MAIN,
-    (gslc_tsRect){10,10,80,40},"Quit",0,E_FONT_BTN,&CbBtnQuit);
  
   pElemRef = gslc_ElemCreateBtnTxt(&m_gui,E_ELEM_BTN_LIGHT,E_PG_MAIN,
-    (gslc_tsRect){10,260,100,50},"Light",0,E_FONT_BTN,&CbBtnLight);
+    (gslc_tsRect){10,10,100,50},"Light",0,E_FONT_BTN,&CbBtnLight);
 
   pElemRef = gslc_ElemCreateBtnTxt(&m_gui,E_ELEM_BTN_TimePlus,E_PG_MAIN,
     (gslc_tsRect){370,80,100,50},"+ TIME",0,E_FONT_BTN,&CbBtnTimePlus);
@@ -216,7 +212,7 @@ int main( int argc, char* args[] )
     "",0,E_FONT_TXT);
   gslc_ElemSetTxtCol(&m_gui,pElemRef,GSLC_COL_GRAY_LT2);
 
-  pElemRef = gslc_ElemCreateTxt(&m_gui,GSLC_ID_AUTO,E_PG_MAIN,(gslc_tsRect){317,80,12,50},
+  pElemRef = gslc_ElemCreateTxt(&m_gui,GSLC_ID_AUTO,E_PG_MAIN,(gslc_tsRect){317,80,10,50},
     ":",0,E_FONT_TXT);
   gslc_ElemSetTxtCol(&m_gui,pElemRef,GSLC_COL_GRAY_LT2);
 
@@ -240,11 +236,16 @@ int main( int argc, char* args[] )
     "~C",0,E_FONT_TXT);
   gslc_ElemSetTxtCol(&m_gui,pElemRef,GSLC_COL_GRAY_LT2);
 
+  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_DATATEMPREAD,E_PG_MAIN,(gslc_tsRect){20,200,100,100},
+    "",0,E_FONT_TXTBIG);
+  gslc_ElemSetTxtCol(&m_gui,pElemRef,GSLC_COL_GRAY_LT2);
+
 
   gslc_tsElemRef*  pElemDataTimeH     = gslc_PageFindElemById(&m_gui,E_PG_MAIN,E_ELEM_DATATIMEH);
   gslc_tsElemRef*  pElemDataTimeM     = gslc_PageFindElemById(&m_gui,E_PG_MAIN,E_ELEM_DATATIMEM);
   gslc_tsElemRef*  pElemDataTempMax   = gslc_PageFindElemById(&m_gui,E_PG_MAIN,E_ELEM_DATATEMPMAX);
   gslc_tsElemRef*  pElemDataTempMin   = gslc_PageFindElemById(&m_gui,E_PG_MAIN,E_ELEM_DATATEMPMIN);
+  gslc_tsElemRef*  pElemDataTempRead  = gslc_PageFindElemById(&m_gui,E_PG_MAIN,E_ELEM_DATATEMPREAD);
 
   // -----------------------------------
   // Start display
@@ -269,6 +270,11 @@ int main( int argc, char* args[] )
     gslc_ElemSetTxtStr(&m_gui,pElemDataTempMax,acTxt);
     snprintf(acTxt,MAX_STR,"%d",dataTempMin);
     gslc_ElemSetTxtStr(&m_gui,pElemDataTempMin,acTxt);
+    
+    //print chamber temp
+    snprintf(acTxt,MAX_STR,"%d",dataTempRead);
+    gslc_ElemSetTxtStr(&m_gui,pElemDataTempRead,acTxt);
+    
     // Periodically call GUIslice update function
     gslc_Update(&m_gui);
 
