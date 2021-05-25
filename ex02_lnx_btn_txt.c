@@ -38,7 +38,7 @@ enum {  E_FONT_BTN,
 bool    m_bQuit = false;
 char StartStop[5]= "Start";
 
-int     dataTimeDuration = 1;
+int     dataTimeDuration = 555;
 int     dataTempMax = 68;
 int     dataTempMin = 2;
 
@@ -161,7 +161,7 @@ int main( int argc, char* args[] )
   bOk = gslc_FontSet(&m_gui,E_FONT_BTN,GSLC_FONTREF_FNAME,FONT1,20);
   if (!bOk) { printf("ERROR: gslc_FontSet() failed\n"); exit(1); }
 
-  bOk = gslc_FontSet(&m_gui,E_FONT_TXT,GSLC_FONTREF_FNAME,FONT1,35);
+  bOk = gslc_FontSet(&m_gui,E_FONT_TXT,GSLC_FONTREF_FNAME,FONT1,30);
   if (!bOk) { fprintf(stderr,"ERROR: FontSet failed\n"); exit(1); }
 
   // -----------------------------------
@@ -210,23 +210,23 @@ int main( int argc, char* args[] )
     (gslc_tsRect){180,10,290,50},StartStop,0,E_FONT_BTN,&CbBtnStartStop);
 
   // Create texts
-  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_DATATIME,E_PG_MAIN,(gslc_tsRect){290,80,100,50},
+  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_DATATIME,E_PG_MAIN,(gslc_tsRect){284,80,100,50},
     "",0,E_FONT_TXT);
   gslc_ElemSetTxtCol(&m_gui,pElemRef,GSLC_COL_GRAY_LT2);
 
-  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_DATATEMPMAX,E_PG_MAIN,(gslc_tsRect){290,200,100,50},
+  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_DATATEMPMAX,E_PG_MAIN,(gslc_tsRect){284,200,22,50},
     "",0,E_FONT_TXT);
   gslc_ElemSetTxtCol(&m_gui,pElemRef,GSLC_COL_GRAY_LT2);
 
-  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_DATATEMPMIN,E_PG_MAIN,(gslc_tsRect){290,260,100,50},
+  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_DATATEMPMIN,E_PG_MAIN,(gslc_tsRect){284,260,22,50},
     "",0,E_FONT_TXT);
   gslc_ElemSetTxtCol(&m_gui,pElemRef,GSLC_COL_GRAY_LT2);
 
-  pElemRef = gslc_ElemCreateTxt(&m_gui,GSLC_ID_AUTO,E_PG_MAIN,(gslc_tsRect){310,200,40,50},
+  pElemRef = gslc_ElemCreateTxt(&m_gui,GSLC_ID_AUTO,E_PG_MAIN,(gslc_tsRect){306,200,25,50},
     "°C",0,E_FONT_TXT);
   gslc_ElemSetTxtCol(&m_gui,pElemRef,GSLC_COL_GRAY_LT2);
 
-  pElemRef = gslc_ElemCreateTxt(&m_gui,GSLC_ID_AUTO,E_PG_MAIN,(gslc_tsRect){310,260,40,50},
+  pElemRef = gslc_ElemCreateTxt(&m_gui,GSLC_ID_AUTO,E_PG_MAIN,(gslc_tsRect){306,260,25,50},
     "°C",0,E_FONT_TXT);
   gslc_ElemSetTxtCol(&m_gui,pElemRef,GSLC_COL_GRAY_LT2);
 
@@ -249,7 +249,7 @@ int main( int argc, char* args[] )
     
     snprintf(acTxt,MAX_STR,"%d",dataTimeDuration);
     gslc_ElemSetTxtStr(&m_gui,pElemDataTime,acTxt);
-    snprintf(acTxt,MAX_STR,"%3d",dataTempMax);
+    snprintf(acTxt,MAX_STR,"%d",dataTempMax);
     gslc_ElemSetTxtStr(&m_gui,pElemDataTempMax,acTxt);
     snprintf(acTxt,MAX_STR,"%d",dataTempMin);
     gslc_ElemSetTxtStr(&m_gui,pElemDataTempMin,acTxt);
