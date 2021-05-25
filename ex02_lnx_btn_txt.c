@@ -41,10 +41,10 @@ enum {  E_FONT_BTN,
 bool    m_bQuit = false;
 char StartStop[5]= "Start";
 
-int     dataTimeDurationH = 4;
-int     dataTimeDurationM = 4;
-int     dataTempMax = 68;
-int     dataTempMin = 2;
+int     dataTimeDurationH = 0;
+int     dataTimeDurationM = 0;
+int     dataTempMax = 30;
+int     dataTempMin = 20;
 int     dataTempRead = 78;
 
 // Instantiate the GUI
@@ -100,31 +100,45 @@ bool CbBtnLight(void* pvGui,void *pvElemRef,gslc_teTouch eTouch,int16_t nX,int16
 
 bool CbBtnMinTempPlus(void* pvGui,void *pvElemRef,gslc_teTouch eTouch,int16_t nX,int16_t nY)
 {
+  dataTempMin++;
+  if((dataTempMax-5)<=dataTempMin){
+    dataTempMin = dataTempMax-5;
+  }
   return true;
 }
 
 bool CbBtnMinTempMinus(void* pvGui,void *pvElemRef,gslc_teTouch eTouch,int16_t nX,int16_t nY)
 {
+  dataTempMin--;
+  if(dataTempMin <= 20){
+    dataTempMin = 20;
+  }
   return true;
 }
 
 bool CbBtnMaxTempPlus(void* pvGui,void *pvElemRef,gslc_teTouch eTouch,int16_t nX,int16_t nY)
 {
+  dataTempMax++;
   return true;
 }
 
 bool CbBtnMaxTempMinus(void* pvGui,void *pvElemRef,gslc_teTouch eTouch,int16_t nX,int16_t nY)
 {
+  dataTempMax--;
   return true;
 }
 
 bool CbBtnLoadDeafaultForPLA(void* pvGui,void *pvElemRef,gslc_teTouch eTouch,int16_t nX,int16_t nY)
 {
+  dataTempMax = 40;
+  dataTempMin = 50;
   return true;
 }
 
 bool CbBtnLoadDeafaultForABS(void* pvGui,void *pvElemRef,gslc_teTouch eTouch,int16_t nX,int16_t nY)
 {
+  dataTempMax = 70;
+  dataTempMin = 60;
   return true;
 }
 
@@ -270,7 +284,7 @@ int main( int argc, char* args[] )
     "~C",0,E_FONT_TXTSMALL);
   gslc_ElemSetTxtCol(&m_gui,pElemRef,GSLC_COL_GRAY_LT2);
 
-  pElemRef = gslc_ElemCreateTxt(&m_gui,GSLC_ID_AUTO,E_PG_MAIN,(gslc_tsRect){5,200,25,20},
+  pElemRef = gslc_ElemCreateTxt(&m_gui,GSLC_ID_AUTO,E_PG_MAIN,(gslc_tsRect){5,205,25,20},
     "Chamber average:",0,E_FONT_TXTSMALL);
   gslc_ElemSetTxtCol(&m_gui,pElemRef,GSLC_COL_GRAY_LT2);
 
