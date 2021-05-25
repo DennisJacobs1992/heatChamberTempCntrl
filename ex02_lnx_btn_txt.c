@@ -214,20 +214,20 @@ int main( int argc, char* args[] )
     "",0,E_FONT_TXT);
   gslc_ElemSetTxtCol(&m_gui,pElemRef,GSLC_COL_GRAY_LT2);
 
-  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_DATATEMPMAX,E_PG_MAIN,(gslc_tsRect){280,200,30,50},
+  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_DATATEMPMAX,E_PG_MAIN,(gslc_tsRect){290,200,30,50},
     "",0,E_FONT_TXT);
   gslc_ElemSetTxtCol(&m_gui,pElemRef,GSLC_COL_GRAY_LT2);
 
-  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_DATATEMPMIN,E_PG_MAIN,(gslc_tsRect){280,260,30,50},
+  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_DATATEMPMIN,E_PG_MAIN,(gslc_tsRect){290,260,30,50},
     "",0,E_FONT_TXT);
   gslc_ElemSetTxtCol(&m_gui,pElemRef,GSLC_COL_GRAY_LT2);
 
-  pElemRef = gslc_ElemCreateTxt(&m_gui,GSLC_ID_AUTO,E_PG_MAIN,(gslc_tsRect){315,200,25,50},
-    "\176C",0,E_FONT_TXT);
+  pElemRef = gslc_ElemCreateTxt(&m_gui,GSLC_ID_AUTO,E_PG_MAIN,(gslc_tsRect){320,200,25,50},
+    "`C",0,E_FONT_TXT);
   gslc_ElemSetTxtCol(&m_gui,pElemRef,GSLC_COL_GRAY_LT2);
 
-  pElemRef = gslc_ElemCreateTxt(&m_gui,GSLC_ID_AUTO,E_PG_MAIN,(gslc_tsRect){315,260,25,50},
-    "\186C",0,E_FONT_TXT);
+  pElemRef = gslc_ElemCreateTxt(&m_gui,GSLC_ID_AUTO,E_PG_MAIN,(gslc_tsRect){320,260,25,50},
+    "`C",0,E_FONT_TXT);
   gslc_ElemSetTxtCol(&m_gui,pElemRef,GSLC_COL_GRAY_LT2);
 
 
