@@ -35,6 +35,7 @@ enum {  E_FONT_BTN,
         E_FONT_BTN_LIGHT,
         E_FONT_TXT,
         E_FONT_TXTBIG,
+        E_FONT_TXTSMALL,
         MAX_FONT};
 
 bool    m_bQuit = false;
@@ -48,7 +49,7 @@ int     dataTempRead = 78;
 
 // Instantiate the GUI
 #define MAX_PAGE            1
-#define MAX_ELEM_PG_MAIN    20
+#define MAX_ELEM_PG_MAIN    22
 
 gslc_tsGui                  m_gui;
 gslc_tsDriver               m_drv;
@@ -164,6 +165,9 @@ int main( int argc, char* args[] )
   bOk = gslc_FontSet(&m_gui,E_FONT_TXTBIG,GSLC_FONTREF_FNAME,FONT1,100);
   if (!bOk) { fprintf(stderr,"ERROR: FontSet failed\n"); exit(1); }
 
+  bOk = gslc_FontSet(&m_gui,E_FONT_TXTSMALL,GSLC_FONTREF_FNAME,FONT1,10);
+  if (!bOk) { fprintf(stderr,"ERROR: FontSet failed\n"); exit(1); }
+
   // -----------------------------------
   // Create page elements
   gslc_PageAdd(&m_gui,E_PG_MAIN,m_asPageElem,MAX_ELEM_PG_MAIN,m_asPageElemRef,MAX_ELEM_PG_MAIN);
@@ -210,7 +214,7 @@ int main( int argc, char* args[] )
     "",0,E_FONT_TXT);
   gslc_ElemSetTxtCol(&m_gui,pElemRef,GSLC_COL_GRAY_LT2);
 
-  pElemRef = gslc_ElemCreateTxt(&m_gui,GSLC_ID_AUTO,E_PG_MAIN,(gslc_tsRect){316,80,7,50},
+  pElemRef = gslc_ElemCreateTxt(&m_gui,GSLC_ID_AUTO,E_PG_MAIN,(gslc_tsRect){317,80,5,50},
     ":",0,E_FONT_TXT);
   gslc_ElemSetTxtCol(&m_gui,pElemRef,GSLC_COL_GRAY_LT2);
 
@@ -234,12 +238,20 @@ int main( int argc, char* args[] )
     "~C",0,E_FONT_TXT);
   gslc_ElemSetTxtCol(&m_gui,pElemRef,GSLC_COL_GRAY_LT2);
 
-  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_DATATEMPREAD,E_PG_MAIN,(gslc_tsRect){5,220,120,100},
+  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_DATATEMPREAD,E_PG_MAIN,(gslc_tsRect){5,222,120,100},
     "",0,E_FONT_TXTBIG);
   gslc_ElemSetTxtCol(&m_gui,pElemRef,GSLC_COL_GRAY_LT2);
 
-  pElemRef = gslc_ElemCreateTxt(&m_gui,GSLC_ID_AUTO,E_PG_MAIN,(gslc_tsRect){125,279,25,50},
+  pElemRef = gslc_ElemCreateTxt(&m_gui,GSLC_ID_AUTO,E_PG_MAIN,(gslc_tsRect){125,275,25,50},
     "~C",0,E_FONT_TXT);
+  gslc_ElemSetTxtCol(&m_gui,pElemRef,GSLC_COL_GRAY_LT2);
+
+  pElemRef = gslc_ElemCreateTxt(&m_gui,GSLC_ID_AUTO,E_PG_MAIN,(gslc_tsRect){5,260,25,50},
+    "Sensor 1:",0,E_FONT_TXTSMALL);
+  gslc_ElemSetTxtCol(&m_gui,pElemRef,GSLC_COL_GRAY_LT2);
+
+  pElemRef = gslc_ElemCreateTxt(&m_gui,GSLC_ID_AUTO,E_PG_MAIN,(gslc_tsRect){150,260,25,50},
+    "~C",0,E_FONT_TXTSMALL);
   gslc_ElemSetTxtCol(&m_gui,pElemRef,GSLC_COL_GRAY_LT2);
 
 
@@ -268,13 +280,13 @@ int main( int argc, char* args[] )
     gslc_ElemSetTxtStr(&m_gui,pElemDataTimeM,acTxt);
 
     //print temp settings
-    snprintf(acTxt,MAX_STR,"%d",dataTempMax);
+    snprintf(acTxt,MAX_STR,"%02d",dataTempMax);
     gslc_ElemSetTxtStr(&m_gui,pElemDataTempMax,acTxt);
-    snprintf(acTxt,MAX_STR,"%d",dataTempMin);
+    snprintf(acTxt,MAX_STR,"%02d",dataTempMin);
     gslc_ElemSetTxtStr(&m_gui,pElemDataTempMin,acTxt);
     
     //print chamber temp
-    snprintf(acTxt,MAX_STR,"%d",dataTempRead);
+    snprintf(acTxt,MAX_STR,"%02d",dataTempRead);
     gslc_ElemSetTxtStr(&m_gui,pElemDataTempRead,acTxt);
     
     // Periodically call GUIslice update function
