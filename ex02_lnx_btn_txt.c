@@ -105,7 +105,7 @@ bool CbBtnMinTempPlus(void* pvGui,void *pvElemRef,gslc_teTouch eTouch,int16_t nX
 {
   dataTempMin++;
   if((dataTempMax-5)<=dataTempMin){
-    dataTempMin = dataTempMax-5;
+    dataTempMin = dataTempMax - 5;
   }
   return true;
 }
@@ -133,7 +133,7 @@ bool CbBtnMaxTempMinus(void* pvGui,void *pvElemRef,gslc_teTouch eTouch,int16_t n
 {
   dataTempMax--;
   if((dataTempMin+5)>=dataTempMax){
-    dataTempMax = dataTempMin+5;
+    dataTempMax = dataTempMin + 5;
   }
   return true;
 }
@@ -154,7 +154,7 @@ bool CbBtnLoadDeafaultForABS(void* pvGui,void *pvElemRef,gslc_teTouch eTouch,int
 
 bool CbBtnTimePlus(void* pvGui,void *pvElemRef,gslc_teTouch eTouch,int16_t nX,int16_t nY)
 {
-  dataTimeDurationM++15;
+  dataTimeDurationM = dataTimeDurationM + 15;
   if(dataTimeDurationM>=60){
     dataTimeDurationM = 0;
     dataTimeDurationH++;
@@ -169,7 +169,7 @@ bool CbBtnTimeMinus(void* pvGui,void *pvElemRef,gslc_teTouch eTouch,int16_t nX,i
     dataTimeDurationH--;
   }
   else{
-    dataTimeDurationM--15;
+    dataTimeDurationM = dataTimeDurationM-15;
   }
   return true;
 }
