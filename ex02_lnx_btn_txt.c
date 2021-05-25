@@ -39,8 +39,8 @@ enum {  E_FONT_BTN,
 bool    m_bQuit = false;
 char StartStop[5]= "Start";
 
-int     dataTimeDuration = 4;
-int     dataTimeDuration = 4;
+int     dataTimeDurationH = 4;
+int     dataTimeDurationM = 4;
 int     dataTempMax = 68;
 int     dataTempMin = 2;
 
