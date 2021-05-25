@@ -129,7 +129,7 @@ int main( int argc, char* args[] )
   if (!gslc_Init(&m_gui,&m_drv,m_asPage,MAX_PAGE,m_asFont,MAX_FONT)) { exit(1); }
 
   // Load Fonts
-  bOk = gslc_FontSet(&m_gui,E_FONT_BTN,GSLC_FONTREF_FNAME,FONT1,12);
+  bOk = gslc_FontSet(&m_gui,E_FONT_BTN,GSLC_FONTREF_FNAME,FONT1,20);
   if (!bOk) { printf("ERROR: gslc_FontSet() failed\n"); exit(1); }
 
   // -----------------------------------
@@ -145,10 +145,10 @@ int main( int argc, char* args[] )
 
   // Create buttons
   pElemRef = gslc_ElemCreateBtnTxt(&m_gui,E_ELEM_BTN_QUIT,E_PG_MAIN,
-    (gslc_tsRect){320,100,80,40},"Quit",0,E_FONT_BTN,&CbBtnQuit);
+    (gslc_tsRect){10,10,80,40},"Quit",0,E_FONT_BTN,&CbBtnQuit);
  
   pElemRef = gslc_ElemCreateBtnTxt(&m_gui,E_ELEM_BTN_LIGHT,E_PG_MAIN,
-    (gslc_tsRect){10,260,80,40},"Light",0,E_FONT_BTN,&CbBtnLight);
+    (gslc_tsRect){10,260,100,50},"Light",0,E_FONT_BTN,&CbBtnLight);
 
   pElemRef = gslc_ElemCreateBtnTxt(&m_gui,E_ELEM_BTN_MaxTempPlus,E_PG_MAIN,
     (gslc_tsRect){360,260,100,50},"+ MAX",0,E_FONT_BTN,&CbBtnMaxTempPlus);
@@ -163,10 +163,10 @@ int main( int argc, char* args[] )
     (gslc_tsRect){180,200,100,50},"- MIN",0,E_FONT_BTN,&CbBtnMinTempMinus);    
 
   pElemRef = gslc_ElemCreateBtnTxt(&m_gui,E_ELEM_BTN_DeafaultForPLA,E_PG_MAIN,
-    (gslc_tsRect){230,140,100,50},"PLA",0,E_FONT_BTN,&CbBtnLoadDeafaultForPLA);
+    (gslc_tsRect){200,140,100,50},"PLA",0,E_FONT_BTN,&CbBtnLoadDeafaultForPLA);
  
   pElemRef = gslc_ElemCreateBtnTxt(&m_gui,E_ELEM_BTN_DeafaultForABS,E_PG_MAIN,
-    (gslc_tsRect){310,140,100,50},"ABS",0,E_FONT_BTN,&CbBtnLoadDeafaultForABS);
+    (gslc_tsRect){330,140,100,50},"ABS",0,E_FONT_BTN,&CbBtnLoadDeafaultForABS);
 
   // -----------------------------------
   // Start display
