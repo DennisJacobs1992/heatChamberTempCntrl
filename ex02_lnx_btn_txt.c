@@ -161,7 +161,7 @@ int main( int argc, char* args[] )
   bOk = gslc_FontSet(&m_gui,E_FONT_BTN,GSLC_FONTREF_FNAME,FONT1,20);
   if (!bOk) { printf("ERROR: gslc_FontSet() failed\n"); exit(1); }
 
-  bOk = gslc_FontSet(&m_gui,E_FONT_TXT,GSLC_FONTREF_FNAME,FONT1,40);
+  bOk = gslc_FontSet(&m_gui,E_FONT_TXT,GSLC_FONTREF_FNAME,FONT1,30);
   if (!bOk) { fprintf(stderr,"ERROR: FontSet failed\n"); exit(1); }
 
   // -----------------------------------
@@ -222,11 +222,11 @@ int main( int argc, char* args[] )
     "",0,E_FONT_TXT);
   gslc_ElemSetTxtCol(&m_gui,pElemRef,GSLC_COL_GRAY_LT2);
 
-  pElemRef = gslc_ElemCreateTxt(&m_gui,GSLC_ID_AUTO,E_PG_MAIN,(gslc_tsRect){310,200,100,50},
+  pElemRef = gslc_ElemCreateTxt(&m_gui,GSLC_ID_AUTO,E_PG_MAIN,(gslc_tsRect){310,200,60,50},
     "°C",0,E_FONT_TXT);
   gslc_ElemSetTxtCol(&m_gui,pElemRef,GSLC_COL_GRAY_LT2);
 
-  pElemRef = gslc_ElemCreateTxt(&m_gui,GSLC_ID_AUTO,E_PG_MAIN,(gslc_tsRect){310,260,100,50},
+  pElemRef = gslc_ElemCreateTxt(&m_gui,GSLC_ID_AUTO,E_PG_MAIN,(gslc_tsRect){310,260,60,50},
     "°C",0,E_FONT_TXT);
   gslc_ElemSetTxtCol(&m_gui,pElemRef,GSLC_COL_GRAY_LT2);
 
@@ -247,11 +247,11 @@ int main( int argc, char* args[] )
   m_bQuit = false;
   while (!m_bQuit) {
     
-    snprintf(acTxt,MAX_STR,"%2d",dataTimeDuration);
+    snprintf(acTxt,MAX_STR,"%d",dataTimeDuration);
     gslc_ElemSetTxtStr(&m_gui,pElemDataTime,acTxt);
-    snprintf(acTxt,MAX_STR,"%2d",dataTempMax);
+    snprintf(acTxt,MAX_STR,"%d",dataTempMax);
     gslc_ElemSetTxtStr(&m_gui,pElemDataTempMax,acTxt);
-    snprintf(acTxt,MAX_STR,"%2d",dataTempMin);
+    snprintf(acTxt,MAX_STR,"%d",dataTempMin);
     gslc_ElemSetTxtStr(&m_gui,pElemDataTempMin,acTxt);
     // Periodically call GUIslice update function
     gslc_Update(&m_gui);
