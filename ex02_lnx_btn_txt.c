@@ -32,6 +32,7 @@ enum {  E_ELEM_BOX,
         E_ELEM_DATATEMPMAX};
 enum {  E_FONT_BTN,
         E_FONT_BTN_LIGHT,
+        E_FONT_TXT,
         MAX_FONT};
 
 bool    m_bQuit = false;
@@ -51,6 +52,8 @@ gslc_tsFont                 m_asFont[MAX_FONT];
 gslc_tsPage                 m_asPage[MAX_PAGE];
 gslc_tsElem                 m_asPageElem[MAX_ELEM_PG_MAIN];
 gslc_tsElemRef              m_asPageElemRef[MAX_ELEM_PG_MAIN];
+
+#define MAX_STR             100
 
 // Configure environment variables suitable for display
 // - These may need modification to match your system
