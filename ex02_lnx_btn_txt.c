@@ -212,15 +212,15 @@ int main( int argc, char* args[] )
     (gslc_tsRect){180,10,290,50},StartStop,0,E_FONT_BTN,&CbBtnStartStop);
 
   // Create texts
-  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_DATATIMEH,E_PG_MAIN,(gslc_tsRect){284,80,30,50},
+  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_DATATIMEH,E_PG_MAIN,(gslc_tsRect){283,80,30,50},
     "",0,E_FONT_TXT);
   gslc_ElemSetTxtCol(&m_gui,pElemRef,GSLC_COL_GRAY_LT2);
 
-  pElemRef = gslc_ElemCreateTxt(&m_gui,GSLC_ID_AUTO,E_PG_MAIN,(gslc_tsRect){314,80,12,50},
+  pElemRef = gslc_ElemCreateTxt(&m_gui,GSLC_ID_AUTO,E_PG_MAIN,(gslc_tsRect){317,80,12,50},
     ":",0,E_FONT_TXT);
   gslc_ElemSetTxtCol(&m_gui,pElemRef,GSLC_COL_GRAY_LT2);
 
-  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_DATATIMEM,E_PG_MAIN,(gslc_tsRect){327,80,30,50},
+  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_DATATIMEM,E_PG_MAIN,(gslc_tsRect){330,80,30,50},
     "",0,E_FONT_TXT);
   gslc_ElemSetTxtCol(&m_gui,pElemRef,GSLC_COL_GRAY_LT2);
 
