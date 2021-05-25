@@ -14,18 +14,16 @@
 #define FONT1 "/usr/share/fonts/truetype/noto/NotoMono-Regular.ttf"
 
 // Enumerations for pages, elements, fonts, images
-enum {E_PG_MAIN};
+enum {  E_PG_MAIN};
 enum {  E_ELEM_BOX,
         E_ELEM_BTN_QUIT,
-        E_ELEM_BTN_LIGHT};       
-        /* 
+        E_ELEM_BTN_LIGHT,       
         E_ELEM_BTN_MinTempPlus,
         E_ELEM_BTN_MinTempMinus,
         E_ELEM_BTN_MaxTempPlus,
         E_ELEM_BTN_MaxTempMinus,
         E_ELEM_BTN_DeafaultForPLA,
         E_ELEM_BTN_DeafaultForABS};
-        */
 enum {  E_FONT_BTN,
         E_FONT_BTN_LIGHT,
         MAX_FONT};
@@ -34,7 +32,7 @@ bool    m_bQuit = false;
 
 // Instantiate the GUI
 #define MAX_PAGE            1
-#define MAX_ELEM_PG_MAIN    3
+#define MAX_ELEM_PG_MAIN    9
 
 gslc_tsGui                  m_gui;
 gslc_tsDriver               m_drv;
@@ -87,7 +85,7 @@ bool CbBtnLight(void* pvGui,void *pvElemRef,gslc_teTouch eTouch,int16_t nX,int16
   }
   return true;
 }
-/*
+
 bool CbBtnMinTempPlus(void* pvGui,void *pvElemRef,gslc_teTouch eTouch,int16_t nX,int16_t nY)
 {
   return true;
@@ -117,7 +115,7 @@ bool CbBtnLoadDeafaultForABS(void* pvGui,void *pvElemRef,gslc_teTouch eTouch,int
 {
   return true;
 }
-*/
+
 
 int main( int argc, char* args[] )
 {
@@ -150,26 +148,26 @@ int main( int argc, char* args[] )
     (gslc_tsRect){320,100,80,40},"Quit",0,E_FONT_BTN,&CbBtnQuit);
  
   pElemRef = gslc_ElemCreateBtnTxt(&m_gui,E_ELEM_BTN_LIGHT,E_PG_MAIN,
-    (gslc_tsRect){20,20,80,40},"Ligh",0,E_FONT_BTN,&CbBtnLight);
-/*
+    (gslc_tsRect){10,260,80,40},"Light",0,E_FONT_BTN,&CbBtnLight);
+
   pElemRef = gslc_ElemCreateBtnTxt(&m_gui,E_ELEM_BTN_MaxTempPlus,E_PG_MAIN,
-    (gslc_tsRect){360,20,100,50},"+ MAX",0,E_FONT_BTN,&CbBtnMaxTempPlus);
+    (gslc_tsRect){360,260,100,50},"+ MAX",0,E_FONT_BTN,&CbBtnMaxTempPlus);
   
   pElemRef = gslc_ElemCreateBtnTxt(&m_gui,E_ELEM_BTN_MaxTempMinus,E_PG_MAIN,
-    (gslc_tsRect){360,90,100,50},"- MAX",0,E_FONT_BTN,&CbBtnMaxTempPlus);
+    (gslc_tsRect){180,260,100,50},"- MAX",0,E_FONT_BTN,&CbBtnMaxTempPlus);
  
   pElemRef = gslc_ElemCreateBtnTxt(&m_gui,E_ELEM_BTN_MinTempPlus,E_PG_MAIN,
-    (gslc_tsRect){360,160,100,50},"+ MIN",0,E_FONT_BTN,&CbBtnMinTempPlus);
+    (gslc_tsRect){360,200,100,50},"+ MIN",0,E_FONT_BTN,&CbBtnMinTempPlus);
   
   pElemRef = gslc_ElemCreateBtnTxt(&m_gui,E_ELEM_BTN_MinTempMinus,E_PG_MAIN,
-    (gslc_tsRect){360,230,100,50},"- MIN",0,E_FONT_BTN,&CbBtnMinTempMinus);    
+    (gslc_tsRect){180,200,100,50},"- MIN",0,E_FONT_BTN,&CbBtnMinTempMinus);    
 
   pElemRef = gslc_ElemCreateBtnTxt(&m_gui,E_ELEM_BTN_DeafaultForPLA,E_PG_MAIN,
-    (gslc_tsRect){20,90,100,50},"PLA",0,E_FONT_BTN,&CbBtnLoadDeafaultForPLA);
+    (gslc_tsRect){230,140,100,50},"PLA",0,E_FONT_BTN,&CbBtnLoadDeafaultForPLA);
  
   pElemRef = gslc_ElemCreateBtnTxt(&m_gui,E_ELEM_BTN_DeafaultForABS,E_PG_MAIN,
-    (gslc_tsRect){20,160,100,50},"ABS",0,E_FONT_BTN,&CbBtnLoadDeafaultForABS);
-*/
+    (gslc_tsRect){310,140,100,50},"ABS",0,E_FONT_BTN,&CbBtnLoadDeafaultForABS);
+
   // -----------------------------------
   // Start display
 
