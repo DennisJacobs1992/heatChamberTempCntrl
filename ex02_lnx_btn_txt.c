@@ -60,6 +60,9 @@ gslc_tsElemRef              m_asPageElemRef[MAX_ELEM_PG_MAIN];
 
 #define MAX_STR             100
 
+#define MAX_TEMP            70
+#define MIN_TEMP            20
+
 // Configure environment variables suitable for display
 // - These may need modification to match your system
 //   environment and display type
@@ -110,8 +113,8 @@ bool CbBtnMinTempPlus(void* pvGui,void *pvElemRef,gslc_teTouch eTouch,int16_t nX
 bool CbBtnMinTempMinus(void* pvGui,void *pvElemRef,gslc_teTouch eTouch,int16_t nX,int16_t nY)
 {
   dataTempMin--;
-  if(dataTempMin <= 20){
-    dataTempMin = 20;
+  if(dataTempMin <= MAX_TEMP){
+    dataTempMin = MIN_TEMP;
   }
   return true;
 }
@@ -119,12 +122,19 @@ bool CbBtnMinTempMinus(void* pvGui,void *pvElemRef,gslc_teTouch eTouch,int16_t n
 bool CbBtnMaxTempPlus(void* pvGui,void *pvElemRef,gslc_teTouch eTouch,int16_t nX,int16_t nY)
 {
   dataTempMax++;
+  if(dataTempMin >= MAX_TEMP){
+    dataTempMin = MAX_TEMP;
+  }
+  return true;
   return true;
 }
 
 bool CbBtnMaxTempMinus(void* pvGui,void *pvElemRef,gslc_teTouch eTouch,int16_t nX,int16_t nY)
 {
   dataTempMax--;
+  if((dataTempMin+5)>=dataTempMax){
+    dataTempMax = dataTempMin+5;
+  }
   return true;
 }
 
@@ -144,11 +154,23 @@ bool CbBtnLoadDeafaultForABS(void* pvGui,void *pvElemRef,gslc_teTouch eTouch,int
 
 bool CbBtnTimePlus(void* pvGui,void *pvElemRef,gslc_teTouch eTouch,int16_t nX,int16_t nY)
 {
+  dataTimeDurationM++15;
+  if(dataTimeDurationM>=60){
+    dataTimeDurationM = 0;
+    dataTimeDurationH++;
+  }
   return true;
 }
 
 bool CbBtnTimeMinus(void* pvGui,void *pvElemRef,gslc_teTouch eTouch,int16_t nX,int16_t nY)
 {
+  if(dataTimeDurationM=0){
+    dataTimeDurationM = 45;
+    dataTimeDurationH--;
+  }
+  else{
+    dataTimeDurationM--15;
+  }
   return true;
 }
 
@@ -236,11 +258,11 @@ int main( int argc, char* args[] )
     "",0,E_FONT_TXT);
   gslc_ElemSetTxtCol(&m_gui,pElemRef,GSLC_COL_GRAY_LT2);
 
-  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_DATATEMPMAX,E_PG_MAIN,(gslc_tsRect){288,200,30,50},
+  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_DATATEMPMAX,E_PG_MAIN,(gslc_tsRect){288,200,40,50},
     "",0,E_FONT_TXT);
   gslc_ElemSetTxtCol(&m_gui,pElemRef,GSLC_COL_GRAY_LT2);
 
-  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_DATATEMPMIN,E_PG_MAIN,(gslc_tsRect){288,260,30,50},
+  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_DATATEMPMIN,E_PG_MAIN,(gslc_tsRect){288,260,40,50},
     "",0,E_FONT_TXT);
   gslc_ElemSetTxtCol(&m_gui,pElemRef,GSLC_COL_GRAY_LT2);
 
