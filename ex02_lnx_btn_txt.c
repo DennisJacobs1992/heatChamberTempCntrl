@@ -48,7 +48,7 @@ int     dataTempRead = 78;
 
 // Instantiate the GUI
 #define MAX_PAGE            1
-#define MAX_ELEM_PG_MAIN    19
+#define MAX_ELEM_PG_MAIN    20
 
 gslc_tsGui                  m_gui;
 gslc_tsDriver               m_drv;
