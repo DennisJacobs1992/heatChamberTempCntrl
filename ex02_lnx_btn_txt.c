@@ -175,6 +175,11 @@ bool CbBtnTimeMinus(void* pvGui,void *pvElemRef,gslc_teTouch eTouch,int16_t nX,i
   else{
     dataTimeDurationM = dataTimeDurationM-15;
   }
+  if(dataTimeDurationM == 0 && dataTimeDurationH == 0){
+    dataTimeDurationM = 0;
+    dataTimeDurationH = 0;
+  }
+
   return true;
 }
 
@@ -232,7 +237,7 @@ int main( int argc, char* args[] )
     (gslc_tsRect){370,200,100,50},"+ MAX",0,E_FONT_BTN,&CbBtnMaxTempPlus);
   
   pElemRef = gslc_ElemCreateBtnTxt(&m_gui,E_ELEM_BTN_MaxTempMinus,E_PG_MAIN,
-    (gslc_tsRect){180,200,100,50},"- MAX",0,E_FONT_BTN,&CbBtnMaxTempPlus);
+    (gslc_tsRect){180,200,100,50},"- MAX",0,E_FONT_BTN,&CbBtnMaxTempMinus);
  
   pElemRef = gslc_ElemCreateBtnTxt(&m_gui,E_ELEM_BTN_MinTempPlus,E_PG_MAIN,
     (gslc_tsRect){370,260,100,50},"+ MIN",0,E_FONT_BTN,&CbBtnMinTempPlus);
