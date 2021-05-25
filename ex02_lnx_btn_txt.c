@@ -171,12 +171,7 @@ int main( int argc, char* args[] )
   // Background flat color
   gslc_SetBkgndColor(&m_gui,GSLC_COL_GRAY_DK2);
 
-  // Create background box
-  pElemRef = gslc_ElemCreateBox(&m_gui,E_ELEM_BOX,E_PG_MAIN,(gslc_tsRect){0,0,480,320});
-  gslc_ElemSetCol(&m_gui,pElemRef,GSLC_COL_WHITE,GSLC_COL_BLACK,GSLC_COL_BLACK);
-
   // Create buttons
- 
   pElemRef = gslc_ElemCreateBtnTxt(&m_gui,E_ELEM_BTN_LIGHT,E_PG_MAIN,
     (gslc_tsRect){10,10,100,50},"Light",0,E_FONT_BTN,&CbBtnLight);
 
@@ -236,7 +231,7 @@ int main( int argc, char* args[] )
     "~C",0,E_FONT_TXT);
   gslc_ElemSetTxtCol(&m_gui,pElemRef,GSLC_COL_GRAY_LT2);
 
-  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_DATATEMPREAD,E_PG_MAIN,(gslc_tsRect){10,160,120,120},
+  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_DATATEMPREAD,E_PG_MAIN,(gslc_tsRect){10,190,120,120},
     "",0,E_FONT_TXTBIG);
   gslc_ElemSetTxtCol(&m_gui,pElemRef,GSLC_COL_GRAY_LT2);
 
