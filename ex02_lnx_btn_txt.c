@@ -27,7 +27,8 @@ enum {  E_ELEM_BOX,
         E_ELEM_BTN_TimePlus,
         E_ELEM_BTN_TimeMinus,
         E_ELEM_BTN_StartStop,
-        E_ELEM_DATATIME,
+        E_ELEM_DATATIMEH,
+        E_ELEM_DATATIMEM,
         E_ELEM_DATATEMPMIN,
         E_ELEM_DATATEMPMAX};
 enum {  E_FONT_BTN,
@@ -39,12 +40,13 @@ bool    m_bQuit = false;
 char StartStop[5]= "Start";
 
 int     dataTimeDuration = 4;
+int     dataTimeDuration = 4;
 int     dataTempMax = 68;
 int     dataTempMin = 2;
 
 // Instantiate the GUI
 #define MAX_PAGE            1
-#define MAX_ELEM_PG_MAIN    17
+#define MAX_ELEM_PG_MAIN    19
 
 gslc_tsGui                  m_gui;
 gslc_tsDriver               m_drv;
@@ -210,7 +212,15 @@ int main( int argc, char* args[] )
     (gslc_tsRect){180,10,290,50},StartStop,0,E_FONT_BTN,&CbBtnStartStop);
 
   // Create texts
-  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_DATATIME,E_PG_MAIN,(gslc_tsRect){284,80,100,50},
+  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_DATATIMEH,E_PG_MAIN,(gslc_tsRect){284,80,30,50},
+    "",0,E_FONT_TXT);
+  gslc_ElemSetTxtCol(&m_gui,pElemRef,GSLC_COL_GRAY_LT2);
+
+  pElemRef = gslc_ElemCreateTxt(&m_gui,GSLC_ID_AUTO,E_PG_MAIN,(gslc_tsRect){314,80,5,50},
+    ":",0,E_FONT_TXT);
+  gslc_ElemSetTxtCol(&m_gui,pElemRef,GSLC_COL_GRAY_LT2);
+
+  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_DATATIMEM,E_PG_MAIN,(gslc_tsRect){319,80,30,50},
     "",0,E_FONT_TXT);
   gslc_ElemSetTxtCol(&m_gui,pElemRef,GSLC_COL_GRAY_LT2);
 
@@ -231,7 +241,8 @@ int main( int argc, char* args[] )
   gslc_ElemSetTxtCol(&m_gui,pElemRef,GSLC_COL_GRAY_LT2);
 
 
-  gslc_tsElemRef*  pElemDataTime      = gslc_PageFindElemById(&m_gui,E_PG_MAIN,E_ELEM_DATATIME);
+  gslc_tsElemRef*  pElemDataTimeH     = gslc_PageFindElemById(&m_gui,E_PG_MAIN,E_ELEM_DATATIMEH);
+  gslc_tsElemRef*  pElemDataTimeM     = gslc_PageFindElemById(&m_gui,E_PG_MAIN,E_ELEM_DATATIMEM);
   gslc_tsElemRef*  pElemDataTempMax   = gslc_PageFindElemById(&m_gui,E_PG_MAIN,E_ELEM_DATATEMPMAX);
   gslc_tsElemRef*  pElemDataTempMin   = gslc_PageFindElemById(&m_gui,E_PG_MAIN,E_ELEM_DATATEMPMIN);
 
@@ -247,8 +258,13 @@ int main( int argc, char* args[] )
   m_bQuit = false;
   while (!m_bQuit) {
     
-    snprintf(acTxt,MAX_STR,"%02d",dataTimeDuration);
-    gslc_ElemSetTxtStr(&m_gui,pElemDataTime,acTxt);
+    //print time
+    snprintf(acTxt,MAX_STR,"%02d",dataTimeDurationH);
+    gslc_ElemSetTxtStr(&m_gui,pElemDataTimeH,acTxt);
+    snprintf(acTxt,MAX_STR,"%02d",dataTimeDurationM);
+    gslc_ElemSetTxtStr(&m_gui,pElemDataTimeM,acTxt);
+
+    //print temp settings
     snprintf(acTxt,MAX_STR,"%d",dataTempMax);
     gslc_ElemSetTxtStr(&m_gui,pElemDataTempMax,acTxt);
     snprintf(acTxt,MAX_STR,"%d",dataTempMin);
