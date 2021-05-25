@@ -113,7 +113,7 @@ bool CbBtnMinTempPlus(void* pvGui,void *pvElemRef,gslc_teTouch eTouch,int16_t nX
 bool CbBtnMinTempMinus(void* pvGui,void *pvElemRef,gslc_teTouch eTouch,int16_t nX,int16_t nY)
 {
   dataTempMin--;
-  if(dataTempMin <= MAX_TEMP){
+  if(dataTempMin <= MIN_TEMP){
     dataTempMin = MIN_TEMP;
   }
   return true;
@@ -122,8 +122,8 @@ bool CbBtnMinTempMinus(void* pvGui,void *pvElemRef,gslc_teTouch eTouch,int16_t n
 bool CbBtnMaxTempPlus(void* pvGui,void *pvElemRef,gslc_teTouch eTouch,int16_t nX,int16_t nY)
 {
   dataTempMax++;
-  if(dataTempMin >= MAX_TEMP){
-    dataTempMin = MAX_TEMP;
+  if(dataTempMAX >= MAX_TEMP){
+    dataTempMax = MAX_TEMP;
   }
   return true;
   return true;
@@ -159,12 +159,16 @@ bool CbBtnTimePlus(void* pvGui,void *pvElemRef,gslc_teTouch eTouch,int16_t nX,in
     dataTimeDurationM = 0;
     dataTimeDurationH++;
   }
+  if(dataTimeDurationH>=50){
+    dataTimeDurationM = 0;
+    dataTimeDurationH = 50;
+  }
   return true;
 }
 
 bool CbBtnTimeMinus(void* pvGui,void *pvElemRef,gslc_teTouch eTouch,int16_t nX,int16_t nY)
 {
-  if(dataTimeDurationM=0){
+  if(dataTimeDurationM == 0){
     dataTimeDurationM = 45;
     dataTimeDurationH--;
   }
@@ -258,11 +262,11 @@ int main( int argc, char* args[] )
     "",0,E_FONT_TXT);
   gslc_ElemSetTxtCol(&m_gui,pElemRef,GSLC_COL_GRAY_LT2);
 
-  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_DATATEMPMAX,E_PG_MAIN,(gslc_tsRect){288,200,40,50},
+  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_DATATEMPMAX,E_PG_MAIN,(gslc_tsRect){288,200,38,50},
     "",0,E_FONT_TXT);
   gslc_ElemSetTxtCol(&m_gui,pElemRef,GSLC_COL_GRAY_LT2);
 
-  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_DATATEMPMIN,E_PG_MAIN,(gslc_tsRect){288,260,40,50},
+  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_DATATEMPMIN,E_PG_MAIN,(gslc_tsRect){288,260,38,50},
     "",0,E_FONT_TXT);
   gslc_ElemSetTxtCol(&m_gui,pElemRef,GSLC_COL_GRAY_LT2);
 
