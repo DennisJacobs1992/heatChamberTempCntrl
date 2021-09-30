@@ -51,8 +51,8 @@ int     dataTempRead = 78;
 bool    statusButtonStart = 0;
 
 // config wiringpi
-const int pinLed = 23;
-const int pinFanInternal = 22;
+const int pinLed = 22;
+const int pinFanInternal = 23;
 const int pinFanOut = 21;
 const int pinHeater = 24;
 const int pinPrinter = 25;
@@ -215,7 +215,7 @@ int main( int argc, char* args[] )
   wiringPiSetup();
   
   pinMode(pinLed, OUTPUT);
-  //pinMode(pinFanInternal, OUTPUT);
+  pinMode(pinFanInternal, OUTPUT);
   pinMode(pinFanOut, OUTPUT);
   //pinMode(pinHeater, OUTPUT);
   //pinMode(pinPrinter, OUTPUT);
