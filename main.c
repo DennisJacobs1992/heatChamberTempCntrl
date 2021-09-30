@@ -7,9 +7,9 @@ int main (void)
   
   pinMode (21, OUTPUT) ;
   
-  digitalWrite (21, HIGH);
+  digitalWrite (21, LOW);
   delay(3000);
-  digitalWrite (21,  LOW);
+  digitalWrite (21,  HIGH);
   delay(3000);
   
   return 0 ;
