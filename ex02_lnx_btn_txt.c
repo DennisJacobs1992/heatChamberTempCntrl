@@ -53,14 +53,14 @@ int     dataTempRead = 78;
 bool    statusButtonStart = 0;
 
 // config wiringpi
-const int led = 21;
-const int fanInternal = 22;
-const int fanOut = 23;
-const int heater = 24;
-const int printer3d = 25;
-const int tempSens1 = 26;
-const int tempSens2 = 27;
-const int tempSens3 = 28;
+#define led         21
+#define fanInternal 22
+#define fanOut      23
+#define heater      24
+#define printer3d   25
+#define tempSens1   26
+#define tempSens2   27
+#define tempSens3   28
 
 wiringPiSetup();
 
