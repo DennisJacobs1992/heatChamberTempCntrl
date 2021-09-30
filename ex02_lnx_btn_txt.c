@@ -52,6 +52,27 @@ int     dataTempRead = 78;
 
 bool    statusButtonStart = 0;
 
+// config wiringpi
+const int led = 21;
+const int fanInternal = 22;
+const int fanOut = 23;
+const int heater = 24;
+const int printer3d = 25;
+const int tempSens1 = 26;
+const int tempSens2 = 27;
+const int tempSens3 = 28;
+
+wiringPiSetup();
+
+pinMode(led, OUTPUT);
+pinMode(fanInternal, OUTPUT);
+pinMode(fanOut, OUTPUT);
+pinMode(heater, OUTPUT);
+pinMode(printer3d, OUTPUT);
+pinMode(tempSens1, INPUT);
+pinMode(tempSens2, INPUT);
+pinMode(tempSens3, INPUT);
+
 // Instantiate the GUI
 #define MAX_PAGE            1
 #define MAX_ELEM_PG_MAIN    27
@@ -206,25 +227,6 @@ int main( int argc, char* args[] )
   bool              bOk = true;
   gslc_tsElemRef*   pElemRef = NULL;
   char              acTxt[100];
-  const int led = 21;
-  const int fanInternal = 22;
-  const int fanOut = 23;
-  const int heater = 24;
-  const int printer3d = 25;
-  const int tempSens1 = 26;
-  const int tempSens2 = 27;
-  const int tempSens3 = 28;
-
-  wiringPiSetup();
-
-  pinMode(led, OUTPUT);
-  pinMode(fanInternal, OUTPUT);
-  pinMode(fanOut, OUTPUT);
-  pinMode(heater, OUTPUT);
-  pinMode(printer3d, OUTPUT);
-  pinMode(tempSens1, INPUT);
-  pinMode(tempSens2, INPUT);
-  pinMode(tempSens3, INPUT);
 
   // -----------------------------------
   // Initialize
