@@ -6,6 +6,7 @@
 // - Example 02: Accept touch input, text button
 //
 
+#include <stdlib.h>
 #include <wiringPi.h>
 #include "GUIslice.h"
 #include "GUIslice_drv.h"
@@ -58,17 +59,6 @@ const int pinPrinter = 25;
 const int pinTempSensor1 = 26;
 const int pinTempSensor2 = 27;
 const int pinTempSensor3 = 28;
-
-wiringPiSetupGpio();
-
-pinMode(pinLed, OUTPUT);
-pinMode(pinFanInternal, OUTPUT);
-pinMode(pinFanOut, OUTPUT);
-pinMode(pinHeater, OUTPUT);
-pinMode(pinPrinter, OUTPUT);
-pinMode(pinTempSensor1, INPUT);
-pinMode(pinTempSensor2, INPUT);
-pinMode(pinTempSensor3, INPUT);
 
 // Instantiate the GUI
 #define MAX_PAGE            1
@@ -208,6 +198,7 @@ bool CbBtnTimeMinus(void* pvGui,void *pvElemRef,gslc_teTouch eTouch,int16_t nX,i
 
 bool CbBtnStartStop(void* pvGui,void *pvElemRef,gslc_teTouch eTouch,int16_t nX,int16_t nY)
 {
+  /*
   if (statusButtonStart == 0){
     digitalWrite(pinLed, LOW);
     statusButtonStart = 1;
@@ -216,12 +207,30 @@ bool CbBtnStartStop(void* pvGui,void *pvElemRef,gslc_teTouch eTouch,int16_t nX,i
     digitalWrite(pinLed, HIGH);
     statusButtonStart = 0;
   }
+  */
 
   return true;
 }
 
 int main( int argc, char* args[] )
-{  
+{
+  wiringPiSetupGpio();
+
+  pinMode(pinLed, OUTPUT);
+  pinMode(pinFanInternal, OUTPUT);
+  pinMode(pinFanOut, OUTPUT);
+  pinMode(pinHeater, OUTPUT);
+  pinMode(pinPrinter, OUTPUT);
+  pinMode(pinTempSensor1, INPUT);
+  pinMode(pinTempSensor2, INPUT);
+  pinMode(pinTempSensor3, INPUT);
+  
+  
+  digitalWrite (pinLed, LOW);
+  delay(3000);
+  digitalWrite (pinLed,  HIGH);
+  delay(3000);
+  
   bool              bOk = true;
   gslc_tsElemRef*   pElemRef = NULL;
   char              acTxt[100];
