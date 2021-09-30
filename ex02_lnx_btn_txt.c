@@ -6,12 +6,12 @@
 // - Example 02: Accept touch input, text button
 //
 
-#include "GUIslice.h"
-#include "GUIslice_drv.h"
+#include <iostream>
 #include <stdio.h>
 #include <stdlib.h>
 #include <wiringPi.h>
-
+#include "GUIslice.h"
+#include "GUIslice_drv.h"
 
 // Defines for resources
 #define FONT1 "/usr/share/fonts/truetype/noto/NotoMono-Regular.ttf"
@@ -53,25 +53,25 @@ int     dataTempRead = 78;
 bool    statusButtonStart = 0;
 
 // config wiringpi
-#define led         21
-#define fanInternal 22
-#define fanOut      23
-#define heater      24
-#define printer3d   25
-#define tempSens1   26
-#define tempSens2   27
-#define tempSens3   28
+//#define led         21
+//#define fanInternal 22
+//#define fanOut      23
+//#define heater      24
+//#define printer3d   25
+//#define tempSens1   26
+//#define tempSens2   27
+//#define tempSens3   28
 
 wiringPiSetup();
 
-pinMode(led, OUTPUT);
-pinMode(fanInternal, OUTPUT);
-pinMode(fanOut, OUTPUT);
-pinMode(heater, OUTPUT);
-pinMode(printer3d, OUTPUT);
-pinMode(tempSens1, INPUT);
-pinMode(tempSens2, INPUT);
-pinMode(tempSens3, INPUT);
+pinMode(21, OUTPUT);
+pinMode(22, OUTPUT);
+pinMode(23, OUTPUT);
+pinMode(24, OUTPUT);
+pinMode(25, OUTPUT);
+pinMode(26, INPUT);
+pinMode(27, INPUT);
+pinMode(28, INPUT);
 
 // Instantiate the GUI
 #define MAX_PAGE            1
