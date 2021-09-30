@@ -191,11 +191,11 @@ bool CbBtnTimeMinus(void* pvGui,void *pvElemRef,gslc_teTouch eTouch,int16_t nX,i
 bool CbBtnStartStop(void* pvGui,void *pvElemRef,gslc_teTouch eTouch,int16_t nX,int16_t nY)
 {
   if (statusButtonStart == 0){
-    digitalWrite(led1, HIGH);
+    digitalWrite(led, HIGH);
     statusButtonStart = 1;
   }
   else {
-    digitalWrite(led1, LOW);
+    digitalWrite(led, LOW);
     statusButtonStart = 0;
   }
   return true;
