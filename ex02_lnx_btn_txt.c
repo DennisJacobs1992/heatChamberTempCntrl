@@ -6,8 +6,6 @@
 // - Example 02: Accept touch input, text button
 //
 
-#include <stdio.h>
-#include <stdlib.h>
 #include <wiringPi.h>
 #include "GUIslice.h"
 #include "GUIslice_drv.h"
@@ -52,25 +50,25 @@ int     dataTempRead = 78;
 bool    statusButtonStart = 0;
 
 // config wiringpi
-//#define led         21
-//#define fanInternal 22
-//#define fanOut      23
-//#define heater      24
-//#define printer3d   25
-//#define tempSens1   26
-//#define tempSens2   27
-//#define tempSens3   28
+const int pinLed = 21;
+const int pinFanInternal = 22;
+const int pinFanOut = 23;
+const int pinHeater = 24;
+const int pinPrinter = 25;
+const int pinTempSensor1 = 26;
+const int pinTempSensor2 = 27;
+const int pinTempSensor3 = 28;
 
-wiringPiSetup();
+wiringPiSetupGpio();
 
-pinMode(21, OUTPUT);
-pinMode(22, OUTPUT);
-pinMode(23, OUTPUT);
-pinMode(24, OUTPUT);
-pinMode(25, OUTPUT);
-pinMode(26, INPUT);
-pinMode(27, INPUT);
-pinMode(28, INPUT);
+pinMode(pinLed, OUTPUT);
+pinMode(pinFanInternal, OUTPUT);
+pinMode(pinFanOut, OUTPUT);
+pinMode(pinHeater, OUTPUT);
+pinMode(pinPrinter, OUTPUT);
+pinMode(pinTempSensor1, INPUT);
+pinMode(pinTempSensor2, INPUT);
+pinMode(pinTempSensor3, INPUT);
 
 // Instantiate the GUI
 #define MAX_PAGE            1
@@ -211,11 +209,11 @@ bool CbBtnTimeMinus(void* pvGui,void *pvElemRef,gslc_teTouch eTouch,int16_t nX,i
 bool CbBtnStartStop(void* pvGui,void *pvElemRef,gslc_teTouch eTouch,int16_t nX,int16_t nY)
 {
   if (statusButtonStart == 0){
-    digitalWrite(led, HIGH);
+    digitalWrite(pinLed, HIGH);
     statusButtonStart = 1;
   }
   else {
-    digitalWrite(led, LOW);
+    digitalWrite(pinLed, LOW);
     statusButtonStart = 0;
   }
   return true;
