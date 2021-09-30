@@ -215,18 +215,21 @@ int main( int argc, char* args[] )
 {
   wiringPiSetupGpio();
   
-  pinMode(pinLed, OUTPUT);
-  pinMode(pinFanInternal, OUTPUT);
+  //pinMode(pinLed, OUTPUT);
+  //pinMode(pinFanInternal, OUTPUT);
   pinMode(pinFanOut, OUTPUT);
-  pinMode(pinHeater, OUTPUT);
-  pinMode(pinPrinter, OUTPUT);
-  pinMode(pinTempSensor1, INPUT);
-  pinMode(pinTempSensor2, INPUT);
-  pinMode(pinTempSensor3, INPUT);
+  //pinMode(pinHeater, OUTPUT);
+  //pinMode(pinPrinter, OUTPUT);
+  //pinMode(pinTempSensor1, INPUT);
+  //pinMode(pinTempSensor2, INPUT);
+  //pinMode(pinTempSensor3, INPUT);
   
-  /*
+  
   digitalWrite (pinLed, LOW);
-  */
+  delay(3000);
+  digitalWrite (pinLed,  HIGH);
+  delay(3000);
+
   bool              bOk = true;
   gslc_tsElemRef*   pElemRef = NULL;
   char              acTxt[100];
