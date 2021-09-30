@@ -10,6 +10,7 @@ int main (void)
   digitalWrite (21, HIGH);
   delay(3000);
   digitalWrite (21,  LOW);
+  delay(3000);
   
   return 0 ;
 }
