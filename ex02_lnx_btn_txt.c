@@ -214,7 +214,7 @@ int main( int argc, char* args[] )
 {
   wiringPiSetup();
   
-  pinMode(pinLed, OUTPUT);
+  //pinMode(pinLed, OUTPUT);
   pinMode(pinFanInternal, OUTPUT);
   pinMode(pinFanOut, OUTPUT);
   pinMode(pinHeater, OUTPUT);
@@ -222,11 +222,6 @@ int main( int argc, char* args[] )
   //pinMode(pinTempSensor1, INPUT);
   //pinMode(pinTempSensor2, INPUT);
   //pinMode(pinTempSensor3, INPUT);
-
-  digitalWrite(pinFanOut, LOW);
-  delay(3000);
-  digitalWrite(pinFanOut, HIGH);
-  delay(3000);
 
   bool              bOk = true;
   gslc_tsElemRef*   pElemRef = NULL;
