@@ -6,7 +6,6 @@
 // - Example 02: Accept touch input, text button
 //
 
-#include <iostream>
 #include <stdio.h>
 #include <stdlib.h>
 #include <wiringPi.h>
