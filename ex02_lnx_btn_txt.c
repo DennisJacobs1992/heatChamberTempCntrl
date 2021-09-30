@@ -198,16 +198,15 @@ bool CbBtnTimeMinus(void* pvGui,void *pvElemRef,gslc_teTouch eTouch,int16_t nX,i
 
 bool CbBtnStartStop(void* pvGui,void *pvElemRef,gslc_teTouch eTouch,int16_t nX,int16_t nY)
 {
-  /*
+  
   if (statusButtonStart == 0){
-    digitalWrite(pinLed, LOW);
+    digitalWrite(pinFanOut, LOW);
     statusButtonStart = 1;
   }
   else {
-    digitalWrite(pinLed, HIGH);
+    digitalWrite(pinFanOut, HIGH);
     statusButtonStart = 0;
   }
-  */
   return true;
 }
 
@@ -223,12 +222,6 @@ int main( int argc, char* args[] )
   //pinMode(pinTempSensor1, INPUT);
   //pinMode(pinTempSensor2, INPUT);
   //pinMode(pinTempSensor3, INPUT);
-  
-  
-  digitalWrite (pinLed, LOW);
-  delay(3000);
-  digitalWrite (pinLed,  HIGH);
-  delay(3000);
 
   bool              bOk = true;
   gslc_tsElemRef*   pElemRef = NULL;
