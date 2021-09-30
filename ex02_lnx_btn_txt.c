@@ -8,6 +8,9 @@
 
 #include "GUIslice.h"
 #include "GUIslice_drv.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <wiringPi.h>
 
 
 // Defines for resources
@@ -193,6 +196,7 @@ int main( int argc, char* args[] )
   bool              bOk = true;
   gslc_tsElemRef*   pElemRef = NULL;
   char              acTxt[100];
+  
 
   // -----------------------------------
   // Initialize
