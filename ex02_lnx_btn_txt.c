@@ -214,7 +214,7 @@ bool CbBtnStartStop(void* pvGui,void *pvElemRef,gslc_teTouch eTouch,int16_t nX,i
 int main( int argc, char* args[] )
 {
   wiringPiSetupGpio();
-  /*
+  
   pinMode(pinLed, OUTPUT);
   pinMode(pinFanInternal, OUTPUT);
   pinMode(pinFanOut, OUTPUT);
@@ -224,6 +224,7 @@ int main( int argc, char* args[] )
   pinMode(pinTempSensor2, INPUT);
   pinMode(pinTempSensor3, INPUT);
   
+  /*
   digitalWrite (pinLed, LOW);
   */
   bool              bOk = true;

@@ -10,6 +10,7 @@ Steps to build succesfully
     LDLIBS = -ISDL2 - ISDL2_tft ${GSLC_LDLIB_EXTRA} -lwiringPi
 - Coppy paste the ex02_Inx_btn_txt.c file into the GUIslice/examples/libirary directory
 - Compile by simply using the following command "make ex02_Inx_btn_txt"
+- Run the program using the following command "sudo ./ex02_Inx_btn_txt"
 
 
 
