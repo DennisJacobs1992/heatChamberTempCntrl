@@ -200,11 +200,11 @@ bool CbBtnStartStop(void* pvGui,void *pvElemRef,gslc_teTouch eTouch,int16_t nX,i
 {
   
   if (statusButtonStart == 0){
-    digitalWrite(pinFanOut, LOW);
+    digitalWrite(pinLed, LOW);
     statusButtonStart = 1;
   }
   else {
-    digitalWrite(pinFanOut, HIGH);
+    digitalWrite(pinLed, HIGH);
     statusButtonStart = 0;
   }
   return true;
@@ -214,7 +214,7 @@ int main( int argc, char* args[] )
 {
   wiringPiSetup();
   
-  //pinMode(pinLed, OUTPUT);
+  pinMode(pinLed, OUTPUT);
   //pinMode(pinFanInternal, OUTPUT);
   pinMode(pinFanOut, OUTPUT);
   //pinMode(pinHeater, OUTPUT);
