@@ -207,7 +207,6 @@ bool CbBtnStartStop(void* pvGui,void *pvElemRef,gslc_teTouch eTouch,int16_t nX,i
     digitalWrite(pinPrinter, HIGH);
     statusButtonStart = 0;
   }
-  delay(700);
   return true;
 }
 
@@ -228,7 +227,7 @@ int main( int argc, char* args[] )
   digitalWrite(pinFanInternal, HIGH);
   digitalWrite(pinFanOut, HIGH);
   digitalWrite(pinHeater, HIGH);
-  digitalWrite(pinPrinter, HIGH);
+  digitalWrite(pinPrinter, LOW);
 
   bool              bOk = true;
   gslc_tsElemRef*   pElemRef = NULL;
