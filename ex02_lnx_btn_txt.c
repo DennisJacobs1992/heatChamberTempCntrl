@@ -223,6 +223,11 @@ int main( int argc, char* args[] )
   //pinMode(pinTempSensor2, INPUT);
   //pinMode(pinTempSensor3, INPUT);
 
+  digitalWrite(pinLed, HIGH);
+  digitalWrite(pinFanInternal, HIGH);
+  digitalWrite(pinFanOut, HIGH);
+  digitalWrite(pinHeater, HIGH);
+
   bool              bOk = true;
   gslc_tsElemRef*   pElemRef = NULL;
   char              acTxt[100];
