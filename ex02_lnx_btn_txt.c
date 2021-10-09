@@ -219,7 +219,7 @@ int main( int argc, char* args[] )
   pinMode(pinFanOut, OUTPUT);
   pinMode(pinHeater, OUTPUT);
   pinMode(pinPrinter, OUTPUT);
-  //pinMode(pinTempSensor1, INPUT);
+  pinMode(pinTempSensor1, INPUT);
   //pinMode(pinTempSensor2, INPUT);
   //pinMode(pinTempSensor3, INPUT);
 
