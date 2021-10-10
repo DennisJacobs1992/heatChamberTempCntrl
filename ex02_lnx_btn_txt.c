@@ -51,6 +51,10 @@ int     dataTempRead = 78;
 
 bool    statusButtonStart = 0;
 
+// OneWire variables for reading the devices. Used for the temperature sensors
+char **sensorNames;
+int sensorNamesCount;
+
 // config wiringpi
 const int pinLed = 24;
 const int pinFanInternal = 23;
@@ -236,7 +240,8 @@ int main( int argc, char* args[] )
 
   //Sensor test code
   SensorList *sensorList = GetSensors(sensorNames, sensorNamesCount);
-
+  printf("Attached Sensors: %d\n", sensorList->SensorCount);
+  
   // -----------------------------------
   // Initialize
   gslc_InitDebug(&DebugOut);
