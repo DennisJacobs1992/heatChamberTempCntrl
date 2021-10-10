@@ -17,7 +17,11 @@ You can configure the OneWire inteface on any specific pin using the following c
 "sudo dtoverlay w1-gpio gpiopin=12 pullup=0"
 For this project pins GPIO 12, 16, and 20 are configured for OneWire. 
 Instead of 3 different GPIO's, one single GPIO could have been used, I discovered that later.
-to get the data I have used the "sensor" libray
+to get the data I have used the "sensor" libray and added the sensor.c and sensor.h to the Guislice location:
+"Guislice/src/"
+In the make files I added "../../src/sensor.c" to the "GSLC_CORE" list.
+
+
 
 
 

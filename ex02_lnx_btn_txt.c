@@ -32,7 +32,10 @@ enum {  E_ELEM_BOX,
         E_ELEM_DATATIMEM,
         E_ELEM_DATATEMPMIN,
         E_ELEM_DATATEMPMAX,
-        E_ELEM_DATATEMPREAD};
+        E_ELEM_DATATEMPREAD,
+        E_ELEM_SensorData1,
+        E_ELEM_SensorData2,
+        E_ELEM_SensorData3};
 enum {  E_FONT_BTN,
         E_FONT_BTN_LIGHT,
         E_FONT_TXT,
@@ -54,6 +57,11 @@ bool    statusButtonStart = 0;
 // OneWire variables for reading the devices. Used for the temperature sensors
 char **sensorNames;
 int sensorNamesCount;
+float temperature[4];
+
+float dataTempSensor1 = 0;
+float dataTempSensor2 = 0;
+float dataTempSensor3 = 0;
 
 // config wiringpi
 const int pinLed = 24;
@@ -61,13 +69,10 @@ const int pinFanInternal = 23;
 const int pinFanOut = 21;
 const int pinHeater = 22;
 const int pinPrinter = 25;
-const int pinTempSensor1 = 26;
-const int pinTempSensor2 = 27;
-const int pinTempSensor3 = 28;
 
 // Instantiate the GUI
 #define MAX_PAGE            1
-#define MAX_ELEM_PG_MAIN    27
+#define MAX_ELEM_PG_MAIN    30
 
 gslc_tsGui                  m_gui;
 gslc_tsDriver               m_drv;
@@ -215,6 +220,35 @@ bool CbBtnStartStop(void* pvGui,void *pvElemRef,gslc_teTouch eTouch,int16_t nX,i
   return true;
 }
 
+void PrintTemperatue(int sensor, float temperature)
+{
+  switch (i)
+  {
+  case 0:
+    dataTempSensor1 = temperature;
+    snprintf(acTxt,MAX_STR,"%02d",dataTempSensor1);
+    gslc_ElemSetTxtStr(&m_gui,pElemSensorData1,acTxt);
+    break;
+  case 1:
+    dataTempSensor2 = temperature;
+    snprintf(acTxt,MAX_STR,"%02d",dataTempSensor2);
+    gslc_ElemSetTxtStr(&m_gui,pElemSensorData2,acTxt);
+    break;
+  case 2:
+    dataTempSensor3 = temperature;
+    snprintf(acTxt,MAX_STR,"%02d",dataTempSensor3);
+    gslc_ElemSetTxtStr(&m_gui,pElemSensorData3,acTxt);
+    break;
+  case 3:
+    /dataTempSensor3 = temperature;
+    snprintf(acTxt,MAX_STR,"%02d",dataTempSensor3);
+    gslc_ElemSetTxtStr(&m_gui,pElemSensorData3,acTxt);
+    break;
+  default:
+    break;
+  }
+}
+
 int main( int argc, char* args[] )
 {
   wiringPiSetup();
@@ -224,9 +258,6 @@ int main( int argc, char* args[] )
   pinMode(pinFanOut, OUTPUT);
   pinMode(pinHeater, OUTPUT);
   pinMode(pinPrinter, OUTPUT);
-  //pinMode(pinTempSensor1, INPUT);
-  //pinMode(pinTempSensor2, INPUT);
-  //pinMode(pinTempSensor3, INPUT);
 
   digitalWrite(pinLed, HIGH);
   digitalWrite(pinFanInternal, HIGH);
@@ -238,10 +269,6 @@ int main( int argc, char* args[] )
   gslc_tsElemRef*   pElemRef = NULL;
   char              acTxt[100];
 
-  //Sensor test code
-  SensorList *sensorList = GetSensors(sensorNames, sensorNamesCount);
-  printf("Attached Sensors: %d\n", sensorList->SensorCount);
-  
   // -----------------------------------
   // Initialize
   gslc_InitDebug(&DebugOut);
@@ -343,24 +370,36 @@ int main( int argc, char* args[] )
     "Sensor 1:",0,E_FONT_TXTSMALL);
   gslc_ElemSetTxtCol(&m_gui,pElemRef,GSLC_COL_GRAY_LT2);
 
-  pElemRef = gslc_ElemCreateTxt(&m_gui,GSLC_ID_AUTO,E_PG_MAIN,(gslc_tsRect){110,130,25,20},
+  pElemRef = gslc_ElemCreateTxt(&m_gui,GSLC_ID_AUTO,E_PG_MAIN,(gslc_tsRect){150,130,25,20},
     "~C",0,E_FONT_TXTSMALL);
+  gslc_ElemSetTxtCol(&m_gui,pElemRef,GSLC_COL_GRAY_LT2);
+
+  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_SensorData1,E_PG_MAIN,(gslc_tsRect){90,130,25,20},
+    "",0,E_FONT_TXT);
   gslc_ElemSetTxtCol(&m_gui,pElemRef,GSLC_COL_GRAY_LT2);
 
   pElemRef = gslc_ElemCreateTxt(&m_gui,GSLC_ID_AUTO,E_PG_MAIN,(gslc_tsRect){5,150,25,20},
     "Sensor 2:",0,E_FONT_TXTSMALL);
   gslc_ElemSetTxtCol(&m_gui,pElemRef,GSLC_COL_GRAY_LT2);
 
-  pElemRef = gslc_ElemCreateTxt(&m_gui,GSLC_ID_AUTO,E_PG_MAIN,(gslc_tsRect){110,150,25,20},
+  pElemRef = gslc_ElemCreateTxt(&m_gui,GSLC_ID_AUTO,E_PG_MAIN,(gslc_tsRect){150,150,25,20},
     "~C",0,E_FONT_TXTSMALL);
+  gslc_ElemSetTxtCol(&m_gui,pElemRef,GSLC_COL_GRAY_LT2);
+
+  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_SensorData2,E_PG_MAIN,(gslc_tsRect){90,150,25,20},
+    "",0,E_FONT_TXT);
   gslc_ElemSetTxtCol(&m_gui,pElemRef,GSLC_COL_GRAY_LT2);
 
   pElemRef = gslc_ElemCreateTxt(&m_gui,GSLC_ID_AUTO,E_PG_MAIN,(gslc_tsRect){5,170,25,20},
     "Sensor 3:",0,E_FONT_TXTSMALL);
   gslc_ElemSetTxtCol(&m_gui,pElemRef,GSLC_COL_GRAY_LT2);
 
-  pElemRef = gslc_ElemCreateTxt(&m_gui,GSLC_ID_AUTO,E_PG_MAIN,(gslc_tsRect){110,170,25,20},
+  pElemRef = gslc_ElemCreateTxt(&m_gui,GSLC_ID_AUTO,E_PG_MAIN,(gslc_tsRect){150,170,25,20},
     "~C",0,E_FONT_TXTSMALL);
+  gslc_ElemSetTxtCol(&m_gui,pElemRef,GSLC_COL_GRAY_LT2);
+
+    pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_SensorData3,E_PG_MAIN,(gslc_tsRect){90,170,25,20},
+    "",0,E_FONT_TXT);
   gslc_ElemSetTxtCol(&m_gui,pElemRef,GSLC_COL_GRAY_LT2);
 
   pElemRef = gslc_ElemCreateTxt(&m_gui,GSLC_ID_AUTO,E_PG_MAIN,(gslc_tsRect){5,205,25,20},
@@ -374,6 +413,10 @@ int main( int argc, char* args[] )
   gslc_tsElemRef*  pElemDataTempMin   = gslc_PageFindElemById(&m_gui,E_PG_MAIN,E_ELEM_DATATEMPMIN);
   gslc_tsElemRef*  pElemDataTempRead  = gslc_PageFindElemById(&m_gui,E_PG_MAIN,E_ELEM_DATATEMPREAD);
 
+  gslc_tsElemRef*  pElemSensorData1   = gslc_PageFindElemById(&m_gui,E_PG_MAIN,E_ELEM_SensorData1);
+  gslc_tsElemRef*  pElemSensorData2   = gslc_PageFindElemById(&m_gui,E_PG_MAIN,E_ELEM_SensorData2);
+  gslc_tsElemRef*  pElemSensorData3   = gslc_PageFindElemById(&m_gui,E_PG_MAIN,E_ELEM_SensorData3);
+
   // -----------------------------------
   // Start display
 
@@ -386,6 +429,13 @@ int main( int argc, char* args[] )
   m_bQuit = false;
   while (!m_bQuit) {
     
+    SensorList *sensorList = GetSensors(sensorNames, sensorNamesCount);
+    for(int i = 0; i < sensorList->SensorCount; i++){
+      temperature[i] = ReadTemperature(sensorList->Sensors[i]);
+      PrintTemperatue(i, temperature[i]);
+      LogTemperature(sensorList->Sensors[i], temperature[i]);
+    }
+
     //print time
     snprintf(acTxt,MAX_STR,"%02d",dataTimeDurationH);
     gslc_ElemSetTxtStr(&m_gui,pElemDataTimeH,acTxt);
