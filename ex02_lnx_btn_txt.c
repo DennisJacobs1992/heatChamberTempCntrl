@@ -429,8 +429,6 @@ int main( int argc, char* args[] )
       default:
         break;
       }
-
-      LogTemperature(sensorList->Sensors[i], temperature[i]);
     }
 
     //print time
