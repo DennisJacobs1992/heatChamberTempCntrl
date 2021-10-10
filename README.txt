@@ -12,6 +12,14 @@ Steps to build succesfully
 - Compile by simply using the following command "make ex02_Inx_btn_txt"
 - Run the program using the following command "sudo ./ex02_Inx_btn_txt"
 
+The DS18B20 sensor uses the OneWire interface for data transfer. 
+You can configure the OneWire inteface on any specific pin using the following command:
+"sudo dtoverlay w1-gpio gpiopin=12 pullup=0"
+For this project pins GPIO 12, 16, and 20 are configured for OneWire. 
+Instead of 3 different GPIO's, one single GPIO could have been used, I discovered that later.
+to get the data I have used the "sensor" libray
+
+
 
 
 

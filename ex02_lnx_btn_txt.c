@@ -10,6 +10,7 @@
 #include <wiringPi.h>
 #include "GUIslice.h"
 #include "GUIslice_drv.h"
+#include "sensor.h"
 
 // Defines for resources
 #define FONT1 "/usr/share/fonts/truetype/noto/NotoMono-Regular.ttf"
@@ -219,7 +220,7 @@ int main( int argc, char* args[] )
   pinMode(pinFanOut, OUTPUT);
   pinMode(pinHeater, OUTPUT);
   pinMode(pinPrinter, OUTPUT);
-  pinMode(pinTempSensor1, INPUT);
+  //pinMode(pinTempSensor1, INPUT);
   //pinMode(pinTempSensor2, INPUT);
   //pinMode(pinTempSensor3, INPUT);
 
@@ -232,6 +233,9 @@ int main( int argc, char* args[] )
   bool              bOk = true;
   gslc_tsElemRef*   pElemRef = NULL;
   char              acTxt[100];
+
+  //Sensor test code
+  SensorList *sensorList = GetSensors(sensorNames, sensorNamesCount);
 
   // -----------------------------------
   // Initialize
