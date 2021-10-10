@@ -220,35 +220,6 @@ bool CbBtnStartStop(void* pvGui,void *pvElemRef,gslc_teTouch eTouch,int16_t nX,i
   return true;
 }
 
-void PrintTemperatue(int sensor, float temperature)
-{
-  switch (i)
-  {
-  case 0:
-    dataTempSensor1 = temperature;
-    snprintf(acTxt,MAX_STR,"%02d",dataTempSensor1);
-    gslc_ElemSetTxtStr(&m_gui,pElemSensorData1,acTxt);
-    break;
-  case 1:
-    dataTempSensor2 = temperature;
-    snprintf(acTxt,MAX_STR,"%02d",dataTempSensor2);
-    gslc_ElemSetTxtStr(&m_gui,pElemSensorData2,acTxt);
-    break;
-  case 2:
-    dataTempSensor3 = temperature;
-    snprintf(acTxt,MAX_STR,"%02d",dataTempSensor3);
-    gslc_ElemSetTxtStr(&m_gui,pElemSensorData3,acTxt);
-    break;
-  case 3:
-    /dataTempSensor3 = temperature;
-    snprintf(acTxt,MAX_STR,"%02d",dataTempSensor3);
-    gslc_ElemSetTxtStr(&m_gui,pElemSensorData3,acTxt);
-    break;
-  default:
-    break;
-  }
-}
-
 int main( int argc, char* args[] )
 {
   wiringPiSetup();
@@ -432,7 +403,33 @@ int main( int argc, char* args[] )
     SensorList *sensorList = GetSensors(sensorNames, sensorNamesCount);
     for(int i = 0; i < sensorList->SensorCount; i++){
       temperature[i] = ReadTemperature(sensorList->Sensors[i]);
-      PrintTemperatue(i, temperature[i]);
+      
+      switch (i)
+      {
+      case 0:
+        dataTempSensor1 = temperature;
+        snprintf(acTxt,MAX_STR,"%02d",dataTempSensor1);
+        gslc_ElemSetTxtStr(&m_gui,pElemSensorData1,acTxt);
+        break;
+      case 1:
+        dataTempSensor2 = temperature;
+        snprintf(acTxt,MAX_STR,"%02d",dataTempSensor2);
+        gslc_ElemSetTxtStr(&m_gui,pElemSensorData2,acTxt);
+        break;
+      case 2:
+        dataTempSensor3 = temperature;
+        snprintf(acTxt,MAX_STR,"%02d",dataTempSensor3);
+        gslc_ElemSetTxtStr(&m_gui,pElemSensorData3,acTxt);
+        break;
+      case 3:
+        dataTempSensor3 = temperature;
+        snprintf(acTxt,MAX_STR,"%02d",dataTempSensor3);
+        gslc_ElemSetTxtStr(&m_gui,pElemSensorData3,acTxt);
+        break;
+      default:
+        break;
+      }
+
       LogTemperature(sensorList->Sensors[i], temperature[i]);
     }
 
