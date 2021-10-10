@@ -407,23 +407,23 @@ int main( int argc, char* args[] )
       switch (i)
       {
       case 0:
-        dataTempSensor1 = temperature;
-        snprintf(acTxt,MAX_STR,"%02d",dataTempSensor1);
+        dataTempSensor1 = temperature[i];
+        snprintf(acTxt,MAX_STR,"%02f",dataTempSensor1);
         gslc_ElemSetTxtStr(&m_gui,pElemSensorData1,acTxt);
         break;
       case 1:
-        dataTempSensor2 = temperature;
-        snprintf(acTxt,MAX_STR,"%02d",dataTempSensor2);
+        dataTempSensor2 = temperature[i];
+        snprintf(acTxt,MAX_STR,"%02f",dataTempSensor2);
         gslc_ElemSetTxtStr(&m_gui,pElemSensorData2,acTxt);
         break;
       case 2:
-        dataTempSensor3 = temperature;
-        snprintf(acTxt,MAX_STR,"%02d",dataTempSensor3);
+        dataTempSensor3 = temperature[i];
+        snprintf(acTxt,MAX_STR,"%02f",dataTempSensor3);
         gslc_ElemSetTxtStr(&m_gui,pElemSensorData3,acTxt);
         break;
       case 3:
-        dataTempSensor3 = temperature;
-        snprintf(acTxt,MAX_STR,"%02d",dataTempSensor3);
+        dataTempSensor3 = temperature[i];
+        snprintf(acTxt,MAX_STR,"%02f",dataTempSensor3);
         gslc_ElemSetTxtStr(&m_gui,pElemSensorData3,acTxt);
         break;
       default:
