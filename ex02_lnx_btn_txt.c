@@ -169,7 +169,7 @@ bool CbBtnMaxTempMinus(void* pvGui,void *pvElemRef,gslc_teTouch eTouch,int16_t n
   digitalWrite(pinFanInternal, HIGH);
   digitalWrite(pinFanOut, HIGH);
   digitalWrite(pinHeater, HIGH);
-  digitalWrite(pinPrinter, LOW);
+  digitalWrite(pinPrinter, HIGH);
   m_bQuit = true; //this line should be moved
   if (disableInput == 0){
     if (buttonActive != 5){
@@ -381,7 +381,7 @@ void executeRoutineTasks(){
       digitalWrite(pinFanInternal, HIGH);
       digitalWrite(pinFanOut, HIGH);
       digitalWrite(pinHeater, HIGH);
-      digitalWrite(pinPrinter, HIGH);
+      digitalWrite(pinPrinter, LOW);
     }
     else{
       regulateHeat();
@@ -408,7 +408,7 @@ int main( int argc, char* args[] )
   digitalWrite(pinFanInternal, HIGH);
   digitalWrite(pinFanOut, HIGH);
   digitalWrite(pinHeater, HIGH);
-  digitalWrite(pinPrinter, HIGH);
+  digitalWrite(pinPrinter, LOW);
 
   bool              bOk = true;
   gslc_tsElemRef*   pElemRef = NULL;
