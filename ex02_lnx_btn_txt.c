@@ -169,7 +169,7 @@ bool CbBtnMaxTempMinus(void* pvGui,void *pvElemRef,gslc_teTouch eTouch,int16_t n
   digitalWrite(pinFanInternal, HIGH);
   digitalWrite(pinFanOut, HIGH);
   digitalWrite(pinHeater, HIGH);
-  digitalWrite(pinPrinter, HIGH);
+  digitalWrite(pinPrinter, LOW);
   m_bQuit = true; //this line should be moved
   if (disableInput == 0){
     if (buttonActive != 5){
@@ -408,7 +408,7 @@ int main( int argc, char* args[] )
   digitalWrite(pinFanInternal, HIGH);
   digitalWrite(pinFanOut, HIGH);
   digitalWrite(pinHeater, HIGH);
-  digitalWrite(pinPrinter, LOW);
+  digitalWrite(pinPrinter, HIGH);
 
   bool              bOk = true;
   gslc_tsElemRef*   pElemRef = NULL;
@@ -560,13 +560,10 @@ int main( int argc, char* args[] )
 
   m_bQuit = false;
   while (!m_bQuit) {
-   /*
-    if((clock()-prevRoutine
-        prevRoutine = clock;
+    if((clock()-prevRoutine > CLOCKS_PER_SEC*10){
+        prevRoutine = clock();
         executeRoutineTasks();
-      }
     }
-    */
     //print sensor temperature
     snprintf(acTxt,MAX_STR,"%02f",dataTempSensor1);
     gslc_ElemSetTxtStr(&m_gui,pElemSensorData1,acTxt);
