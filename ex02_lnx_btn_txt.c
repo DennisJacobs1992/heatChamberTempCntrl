@@ -45,7 +45,6 @@ enum {  E_FONT_BTN,
         MAX_FONT};
 
 // OneWire variables for reading the devices. Used for the temperature sensors
-bool enableCountDownTimer = 0;
 bool m_bQuit              = false;
 char **sensorNames;
 char StartStop[5]         = "Start";
@@ -549,21 +548,16 @@ int main( int argc, char* args[] )
     if (startStopStatus = 1){
       preheatStatus = 0;
       // Start Counting down
-      if (enableCountDownTimer = 0){
-        countDownTimer = clock();
-        enableCountDownTimer = 1;
-      }
-      else{
-        if (clock()-countDownTimer == (CLOCKS_PER_SEC*60)){
-          if(dataTimeDurationM <= 0 && dataTimeDurationH > 0){
-            dataTimeDurationM = 59;
-            dataTimeDurationH--;
-          }
-          else if (dataTimeDurationM>0){
-            dataTimeDurationM--;
-          }
-          enableCountDownTimer = 0;
+      if (countDownTimer != t.tm_min){
+        if(dataTimeDurationM <= 0 && dataTimeDurationH > 0){
+          dataTimeDurationM = 59;
+          dataTimeDurationH--;
         }
+        else if (dataTimeDurationM>0){
+          dataTimeDurationM--;
+        }
+        countDownTimer = t.tm_min;
+        enableCountDownTimer = 0;
       }
       //If time is over, stop the start stop status and shut down all perifirals
       //else control the set temperature until the heating time is expired
