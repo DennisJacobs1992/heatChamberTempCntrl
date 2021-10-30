@@ -84,7 +84,7 @@ clock_t buttonActiveTime;
 
 // Instantiate the GUI
 #define MAX_PAGE            1
-#define MAX_ELEM_PG_MAIN    17
+#define MAX_ELEM_PG_MAIN    27
 #define MAX_STR             100
 #define MAX_OVER_TEMP       1
 #define MIN_TEMP            20
