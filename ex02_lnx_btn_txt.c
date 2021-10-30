@@ -123,6 +123,7 @@ bool CbBtnLight(void* pvGui,void *pvElemRef,gslc_teTouch eTouch,int16_t nX,int16
 {
   if (buttonActive != 3){
     buttonActive = 3;
+    buttonActiveTime = clock();
     if (lightStatus == 0){
       digitalWrite(pinLed, LOW);
       lightStatus = 1;
@@ -168,7 +169,7 @@ bool CbBtnMaxTempMinus(void* pvGui,void *pvElemRef,gslc_teTouch eTouch,int16_t n
   digitalWrite(pinFanInternal, HIGH);
   digitalWrite(pinFanOut, HIGH);
   digitalWrite(pinHeater, HIGH);
-  digitalWrite(pinPrinter, HIGH);
+  digitalWrite(pinPrinter, LOW);
   m_bQuit = true; //this line should be moved
   if (disableInput == 0){
     if (buttonActive != 5){
@@ -380,7 +381,7 @@ void executeRoutineTasks(){
       digitalWrite(pinFanInternal, HIGH);
       digitalWrite(pinFanOut, HIGH);
       digitalWrite(pinHeater, HIGH);
-      digitalWrite(pinPrinter, LOW);
+      digitalWrite(pinPrinter, HIGH);
     }
     else{
       regulateHeat();
@@ -407,7 +408,7 @@ int main( int argc, char* args[] )
   digitalWrite(pinFanInternal, HIGH);
   digitalWrite(pinFanOut, HIGH);
   digitalWrite(pinHeater, HIGH);
-  digitalWrite(pinPrinter, LOW);
+  digitalWrite(pinPrinter, HIGH);
 
   bool              bOk = true;
   gslc_tsElemRef*   pElemRef = NULL;
@@ -557,10 +558,16 @@ int main( int argc, char* args[] )
   // -----------------------------------
   // Main event loop
 
-  executeRoutineTasks();
   m_bQuit = false;
   while (!m_bQuit) {
     
+    if (minutechecker.tm_sec < 55){
+      if ((prevRoutine+5 >= minutechecker.tm_sec && prevRoutine+15 < minutechecker.tm_sec) || prevRoutine+30 > minutechecker.tm_sec){
+        prevRoutine = minutechecker.tm_sec;
+        executeRoutineTasks();
+      }
+    }
+
     //print sensor temperature
     snprintf(acTxt,MAX_STR,"%02f",dataTempSensor1);
     gslc_ElemSetTxtStr(&m_gui,pElemSensorData1,acTxt);
