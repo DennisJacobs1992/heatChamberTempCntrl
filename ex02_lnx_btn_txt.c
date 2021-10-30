@@ -294,7 +294,7 @@ void setHeater(){
   if (heaterDutyCycle != 0){
     digitalWrite(pinFanInternal, LOW); // enable fans
     switch (heaterStatus)
-​    {
+    {
       case 0:
         heaterActiveTime = clock();
         heaterStatus = 1;
