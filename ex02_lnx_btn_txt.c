@@ -560,14 +560,13 @@ int main( int argc, char* args[] )
 
   m_bQuit = false;
   while (!m_bQuit) {
-    
-    if (minutechecker.tm_sec < 55){
-      if ((prevRoutine+5 >= minutechecker.tm_sec && prevRoutine+15 < minutechecker.tm_sec) || prevRoutine+30 > minutechecker.tm_sec){
-        prevRoutine = minutechecker.tm_sec;
+   /*
+    if((clock()-prevRoutine
+        prevRoutine = clock;
         executeRoutineTasks();
       }
     }
-
+    */
     //print sensor temperature
     snprintf(acTxt,MAX_STR,"%02f",dataTempSensor1);
     gslc_ElemSetTxtStr(&m_gui,pElemSensorData1,acTxt);
