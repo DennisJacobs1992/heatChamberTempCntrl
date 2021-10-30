@@ -560,7 +560,7 @@ int main( int argc, char* args[] )
 
   m_bQuit = false;
   while (!m_bQuit) {
-    if((clock()-prevRoutine > CLOCKS_PER_SEC*10){
+    if(clock()-prevRoutine > CLOCKS_PER_SEC*10){
         prevRoutine = clock();
         executeRoutineTasks();
     }
