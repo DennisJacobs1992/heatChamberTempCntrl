@@ -545,10 +545,10 @@ int main( int argc, char* args[] )
     dataTempRead = (temperature[0] + temperature[1] + temperature[2]) / 3;
 
     //Start Stop Process (control the set temperature within the set time)
-    if (startStopStatus = 1){
+    if (startStopStatus == 1){
       preheatStatus = 0;
       // Start Counting down
-      if (countDownTimer != t.tm_min){
+      if (countDownTimer != tm.tm_min){
         if(dataTimeDurationM <= 0 && dataTimeDurationH > 0){
           dataTimeDurationM = 59;
           dataTimeDurationH--;
@@ -556,8 +556,8 @@ int main( int argc, char* args[] )
         else if (dataTimeDurationM>0){
           dataTimeDurationM--;
         }
-        countDownTimer = t.tm_min;
-        enableCountDownTimer = 0;
+        countDownTimer = tm.tm_min;
+        
       }
       //If time is over, stop the start stop status and shut down all perifirals
       //else control the set temperature until the heating time is expired
