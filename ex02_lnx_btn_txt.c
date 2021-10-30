@@ -512,7 +512,6 @@ int main( int argc, char* args[] )
 
   m_bQuit = false;
   while (!m_bQuit) {
-/*
     //check if quitstatus should be reset (is quittime expired 6 sec?)
     if ((clock()-quitTime) > (CLOCKS_PER_SEC*6) && quitStatus == 1){
       quitStatus = 0;
@@ -578,7 +577,6 @@ int main( int argc, char* args[] )
     if (preheatStatus == 1){
       regulateHeat();
     }
-*/
     //print time
     snprintf(acTxt,MAX_STR,"%02d",dataTimeDurationH);
     gslc_ElemSetTxtStr(&m_gui,pElemDataTimeH,acTxt);
