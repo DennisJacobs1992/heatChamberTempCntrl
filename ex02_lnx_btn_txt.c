@@ -26,6 +26,7 @@ enum {  E_ELEM_BOX,
         E_ELEM_BTN_MaxTempMinus,
         E_ELEM_BTN_DeafaultForPLA,
         E_ELEM_BTN_DeafaultForABS,
+        E_ELEM_BTN_TimeMinus,
         E_ELEM_BTN_TimePlus,
         E_ELEM_BTN_StartStop,
         E_ELEM_DATATIMEH,
@@ -274,10 +275,10 @@ bool CbBtnPreHeat (void* pvGui,void *pvElemRef,gslc_teTouch eTouch,int16_t nX,in
     buttonActive = 6;
     buttonActiveTime = clock();
     if (preheatStatus == 1){
-      preheatStatus == 0;
+      preheatStatus = 0;
     }
     else{
-      preheatStatus == 1;
+      preheatStatus = 1;
     }
   }
   else{
@@ -294,26 +295,26 @@ void setHeater(){
     digitalWrite(pinFanInternal, LOW); // enable fans
     switch (heaterStatus)
 ​    {
-    case 0:
-      heaterActiveTime = clock();
-      heaterStatus = 1;
-      digitalWrite(pinHeater, LOW); // enable heater
-      break;
-    case 1:
-      if(((clock()-heaterActiveTime)/CLOCKS_PER_SEC) < heaterDutyCycle){
-        heaterStatus = 2;
-        digitalWrite(pinHeater, HIGH); // disable heater
-      }
-      break;
-    case 2:
-      if(((clock()-heaterActiveTime)/CLOCKS_PER_SEC) < 100){
-        heaterStatus = 0;          // set heater status back to 0 ready for new cycle
-      }
-      break;
-    default:
-      heaterStatus = 0;
-      digitalWrite(pinHeater, HIGH); // turn heater off
-      break;
+      case 0:
+        heaterActiveTime = clock();
+        heaterStatus = 1;
+        digitalWrite(pinHeater, LOW); // enable heater
+        break;
+      case 1:
+        if(((clock()-heaterActiveTime)/CLOCKS_PER_SEC) < heaterDutyCycle){
+          heaterStatus = 2;
+          digitalWrite(pinHeater, HIGH); // disable heater
+        }
+        break;
+      case 2:
+        if(((clock()-heaterActiveTime)/CLOCKS_PER_SEC) < 100){
+          heaterStatus = 0;          // set heater status back to 0 ready for new cycle
+        }
+        break;
+      default:
+        heaterStatus = 0;
+        digitalWrite(pinHeater, HIGH); // turn heater off
+        break;
     }
   }
   else{
@@ -338,7 +339,7 @@ void regulateHeat(){
   else if (dataTempRead < dataTempMax+1){
     heaterDutyCycle = 5;
   }
-  else if (dataTempRead > dataTempMax+1 ){
+  else if (dataTempRead > dataTempMax+1){
     heaterDutyCycle = 0;
   }
   setHeater();
@@ -553,7 +554,7 @@ int main( int argc, char* args[] )
         enableCountDownTimer = 1;
       }
       else{
-        if (clock()-countDownTimer = (CLOCKS_PER_SEC*60){
+        if (clock()-countDownTimer == (CLOCKS_PER_SEC*60)){
           if(dataTimeDurationM <= 0 && dataTimeDurationH > 0){
             dataTimeDurationM = 59;
             dataTimeDurationH--;
