@@ -344,18 +344,12 @@ void executeRoutineTasks(){
     {
     case 0:
       dataTempSensor1 = temperature[i];
-      snprintf(acTxt,MAX_STR,"%02f",dataTempSensor1);
-      gslc_ElemSetTxtStr(&m_gui,pElemSensorData1,acTxt);
       break;
     case 1:
       dataTempSensor2 = temperature[i];
-      snprintf(acTxt,MAX_STR,"%02f",dataTempSensor2);
-      gslc_ElemSetTxtStr(&m_gui,pElemSensorData2,acTxt);
       break;
     case 2:
       dataTempSensor3 = temperature[i];
-      snprintf(acTxt,MAX_STR,"%02f",dataTempSensor3);
-      gslc_ElemSetTxtStr(&m_gui,pElemSensorData3,acTxt);
       break;
     default:
       break;
@@ -564,7 +558,14 @@ int main( int argc, char* args[] )
 
   m_bQuit = false;
   while (!m_bQuit) {
-
+    
+    //print sensor temperature
+    snprintf(acTxt,MAX_STR,"%02f",dataTempSensor1);
+    gslc_ElemSetTxtStr(&m_gui,pElemSensorData1,acTxt);
+    snprintf(acTxt,MAX_STR,"%02f",dataTempSensor2);
+    gslc_ElemSetTxtStr(&m_gui,pElemSensorData2,acTxt);
+    snprintf(acTxt,MAX_STR,"%02f",dataTempSensor3);
+    gslc_ElemSetTxtStr(&m_gui,pElemSensorData3,acTxt);
 
     //print time
     snprintf(acTxt,MAX_STR,"%02d",dataTimeDurationH);
