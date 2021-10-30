@@ -336,7 +336,7 @@ void regulateHeat(){
   return;
 }
 
-void executeRoutineTasks{
+void executeRoutineTasks(){
   SensorList *sensorList = GetSensors(sensorNames, sensorNamesCount);
   for(int i = 0; i < sensorList->SensorCount; i++){
     temperature[i] = ReadTemperature(sensorList->Sensors[i]);
