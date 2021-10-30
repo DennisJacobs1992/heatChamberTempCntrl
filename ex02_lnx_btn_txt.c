@@ -390,6 +390,7 @@ void executeRoutineTasks(){
   if (preheatStatus == 1){
     regulateHeat();
   }
+  return;
 }
 
 int main( int argc, char* args[] )
@@ -556,6 +557,7 @@ int main( int argc, char* args[] )
   // -----------------------------------
   // Main event loop
 
+  executeRoutineTasks();
   m_bQuit = false;
   while (!m_bQuit) {
     
