@@ -57,7 +57,7 @@ float temperature[3];
 float dataTempSensor1     = 0;
 float dataTempSensor2     = 0;
 float dataTempSensor3     = 0;
-long heaterDutyCycle;
+long heaterDutyCycle      = 0;
 
 // config wiringpi
 const int pinLed          = 24;
@@ -76,7 +76,8 @@ char buttonActive     = 0;
 bool quitStatus;
 
 //set clock timers
-clock_t countDownTimer;
+struct tm minutechecker;
+int prevMin = 70;
 clock_t quitTime;
 clock_t heaterActiveTime;
 clock_t buttonActiveTime;
@@ -548,7 +549,7 @@ int main( int argc, char* args[] )
     if (startStopStatus == 1){
       preheatStatus = 0;
       // Start Counting down
-      if (countDownTimer != tm.tm_min){
+      if (prevMin != minutechecker.tm_min){
         if(dataTimeDurationM <= 0 && dataTimeDurationH > 0){
           dataTimeDurationM = 59;
           dataTimeDurationH--;
@@ -556,13 +557,13 @@ int main( int argc, char* args[] )
         else if (dataTimeDurationM>0){
           dataTimeDurationM--;
         }
-        countDownTimer = tm.tm_min;
-        
+        prevMin = minutechecker.tm_min;
       }
       //If time is over, stop the start stop status and shut down all perifirals
       //else control the set temperature until the heating time is expired
       if (dataTimeDurationM <= 0 && dataTimeDurationH <= 0){
         startStopStatus = 0;
+        prevMin = 70;
         digitalWrite(pinLed, HIGH);
         digitalWrite(pinFanInternal, HIGH);
         digitalWrite(pinFanOut, HIGH);
