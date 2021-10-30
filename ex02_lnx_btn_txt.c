@@ -78,6 +78,7 @@ bool quitStatus;
 //set clock timers
 struct tm minutechecker;
 int prevMin = 70;
+int prevRoutine = 70;
 clock_t quitTime;
 clock_t heaterActiveTime;
 clock_t buttonActiveTime;
@@ -120,25 +121,8 @@ static int16_t DebugOut(char ch) { fputc(ch,stderr); return 0; }
 // Button callbacks
 bool CbBtnLight(void* pvGui,void *pvElemRef,gslc_teTouch eTouch,int16_t nX,int16_t nY)
 {
-  //quit application if you hold light button for more than 5 seconds
-  if (quitStatus == 0){
-    quitTime = clock();
-    quitStatus = 1;
-  }
-  if ((clock()-quitTime) > (CLOCKS_PER_SEC*5) && quitStatus == 1){
-    //disable all perifirals
-    digitalWrite(pinLed, HIGH);
-    digitalWrite(pinFanInternal, HIGH);
-    digitalWrite(pinFanOut, HIGH);
-    digitalWrite(pinHeater, HIGH);
-    digitalWrite(pinPrinter, LOW);
-    //quit application
-    m_bQuit = true;
-  }
-
   if (buttonActive != 3){
     buttonActive = 3;
-    buttonActiveTime = clock();
     if (lightStatus == 0){
       digitalWrite(pinLed, LOW);
       lightStatus = 1;
@@ -180,6 +164,12 @@ bool CbBtnMaxTempPlus(void* pvGui,void *pvElemRef,gslc_teTouch eTouch,int16_t nX
 
 bool CbBtnMaxTempMinus(void* pvGui,void *pvElemRef,gslc_teTouch eTouch,int16_t nX,int16_t nY)
 {
+  digitalWrite(pinLed, HIGH);
+  digitalWrite(pinFanInternal, HIGH);
+  digitalWrite(pinFanOut, HIGH);
+  digitalWrite(pinHeater, HIGH);
+  digitalWrite(pinPrinter, HIGH);
+  m_bQuit = true; //this line should be moved
   if (disableInput == 0){
     if (buttonActive != 5){
       buttonActive = 5;
@@ -344,6 +334,68 @@ void regulateHeat(){
   }
   setHeater();
   return;
+}
+
+void executeRoutineTasks{
+  SensorList *sensorList = GetSensors(sensorNames, sensorNamesCount);
+  for(int i = 0; i < sensorList->SensorCount; i++){
+    temperature[i] = ReadTemperature(sensorList->Sensors[i]);
+    switch (i)
+    {
+    case 0:
+      dataTempSensor1 = temperature[i];
+      snprintf(acTxt,MAX_STR,"%02f",dataTempSensor1);
+      gslc_ElemSetTxtStr(&m_gui,pElemSensorData1,acTxt);
+      break;
+    case 1:
+      dataTempSensor2 = temperature[i];
+      snprintf(acTxt,MAX_STR,"%02f",dataTempSensor2);
+      gslc_ElemSetTxtStr(&m_gui,pElemSensorData2,acTxt);
+      break;
+    case 2:
+      dataTempSensor3 = temperature[i];
+      snprintf(acTxt,MAX_STR,"%02f",dataTempSensor3);
+      gslc_ElemSetTxtStr(&m_gui,pElemSensorData3,acTxt);
+      break;
+    default:
+      break;
+    }
+  }
+
+  dataTempRead = (temperature[0] + temperature[1] + temperature[2]) / 3;
+  //Start Stop Process (control the set temperature within the set time)
+  if (startStopStatus == 1){
+    preheatStatus = 0;
+    // Start Counting down
+    if (prevMin != minutechecker.tm_min){
+      if(dataTimeDurationM <= 0 && dataTimeDurationH > 0){
+        dataTimeDurationM = 59;
+        dataTimeDurationH--;
+      }
+      else if (dataTimeDurationM>0){
+        dataTimeDurationM--;
+      }
+      prevMin = minutechecker.tm_min;
+    }
+    //If time is over, stop the start stop status and shut down all perifirals
+    //else control the set temperature until the heating time is expired
+    if (dataTimeDurationM <= 0 && dataTimeDurationH <= 0){
+      startStopStatus = 0;
+      prevMin = 70;
+      digitalWrite(pinLed, HIGH);
+      digitalWrite(pinFanInternal, HIGH);
+      digitalWrite(pinFanOut, HIGH);
+      digitalWrite(pinHeater, HIGH);
+      digitalWrite(pinPrinter, LOW);
+    }
+    else{
+      regulateHeat();
+    }
+  }
+
+  if (preheatStatus == 1){
+    regulateHeat();
+  }
 }
 
 int main( int argc, char* args[] )
@@ -512,71 +564,8 @@ int main( int argc, char* args[] )
 
   m_bQuit = false;
   while (!m_bQuit) {
-    //check if quitstatus should be reset (is quittime expired 6 sec?)
-    if ((clock()-quitTime) > (CLOCKS_PER_SEC*6) && quitStatus == 1){
-      quitStatus = 0;
-    }
 
-    SensorList *sensorList = GetSensors(sensorNames, sensorNamesCount);
-    for(int i = 0; i < sensorList->SensorCount; i++){
-      temperature[i] = ReadTemperature(sensorList->Sensors[i]);
-      switch (i)
-      {
-      case 0:
-        dataTempSensor1 = temperature[i];
-        snprintf(acTxt,MAX_STR,"%02f",dataTempSensor1);
-        gslc_ElemSetTxtStr(&m_gui,pElemSensorData1,acTxt);
-        break;
-      case 1:
-        dataTempSensor2 = temperature[i];
-        snprintf(acTxt,MAX_STR,"%02f",dataTempSensor2);
-        gslc_ElemSetTxtStr(&m_gui,pElemSensorData2,acTxt);
-        break;
-      case 2:
-        dataTempSensor3 = temperature[i];
-        snprintf(acTxt,MAX_STR,"%02f",dataTempSensor3);
-        gslc_ElemSetTxtStr(&m_gui,pElemSensorData3,acTxt);
-        break;
-      default:
-        break;
-      }
-    }
 
-    dataTempRead = (temperature[0] + temperature[1] + temperature[2]) / 3;
-
-    //Start Stop Process (control the set temperature within the set time)
-    if (startStopStatus == 1){
-      preheatStatus = 0;
-      // Start Counting down
-      if (prevMin != minutechecker.tm_min){
-        if(dataTimeDurationM <= 0 && dataTimeDurationH > 0){
-          dataTimeDurationM = 59;
-          dataTimeDurationH--;
-        }
-        else if (dataTimeDurationM>0){
-          dataTimeDurationM--;
-        }
-        prevMin = minutechecker.tm_min;
-      }
-      //If time is over, stop the start stop status and shut down all perifirals
-      //else control the set temperature until the heating time is expired
-      if (dataTimeDurationM <= 0 && dataTimeDurationH <= 0){
-        startStopStatus = 0;
-        prevMin = 70;
-        digitalWrite(pinLed, HIGH);
-        digitalWrite(pinFanInternal, HIGH);
-        digitalWrite(pinFanOut, HIGH);
-        digitalWrite(pinHeater, HIGH);
-        digitalWrite(pinPrinter, LOW);
-      }
-      else{
-        regulateHeat();
-      }
-    }
-
-    if (preheatStatus == 1){
-      regulateHeat();
-    }
     //print time
     snprintf(acTxt,MAX_STR,"%02d",dataTimeDurationH);
     gslc_ElemSetTxtStr(&m_gui,pElemDataTimeH,acTxt);
