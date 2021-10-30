@@ -124,7 +124,7 @@ bool CbBtnLight(void* pvGui,void *pvElemRef,gslc_teTouch eTouch,int16_t nX,int16
     quitTime = clock();
     quitStatus = 1;
   }
-  if (clock()-quitTime) > (CLOCKS_PER_SEC*5) && quitStatus == 1{
+  if ((clock()-quitTime) > (CLOCKS_PER_SEC*5) && quitStatus == 1){
     //disable all perifirals
     digitalWrite(pinLed, HIGH);
     digitalWrite(pinFanInternal, HIGH);
@@ -245,7 +245,7 @@ bool CbBtnTimeMinus(void* pvGui,void *pvElemRef,gslc_teTouch eTouch,int16_t nX,i
       dataTimeDurationM = 55;
       dataTimeDurationH --;
     }
-    else if (dataTimeDurationM > 0)
+    else if (dataTimeDurationM > 0){
       dataTimeDurationM -= 5;
     }
   }
@@ -261,10 +261,10 @@ bool CbBtnTimeMinus(void* pvGui,void *pvElemRef,gslc_teTouch eTouch,int16_t nX,i
 bool CbBtnStartStop(void* pvGui,void *pvElemRef,gslc_teTouch eTouch,int16_t nX,int16_t nY)
 {
   if (startStopStatus == 0){
-    startStopStatus == 1
+    startStopStatus = 1;
   }
   else{
-    startStopStatus == 0
+    startStopStatus = 0;
   }
   return true;
 }
@@ -287,36 +287,6 @@ bool CbBtnPreHeat (void* pvGui,void *pvElemRef,gslc_teTouch eTouch,int16_t nX,in
     }
   }
   return true;
-}
-
-void regulateHeat(){
-  if (dataTempRead < dataTempMax-5){
-   digitalWrite(pinHeater, LOW);
-   }
-   else{
-    if (dataTempRead < dataTempMax-3){
-      heaterDutyCycle = 50;
-    }
-    else if (dataTempRead < dataTempMax-2){
-      heaterDutyCycle = 30;
-    }
-    else if (dataTempRead < dataTempMax-1){
-      heaterDutyCycle = 10;
-    }
-    else if (dataTempRead < dataTempMax+1){
-      heaterDutyCycle = 5;
-    }
-    else if{
-      heaterDutyCycle = 0;
-      digitalWrite(pinHeater, HIGH); // turn heater off if sensor temperature is higher then 2 degrees above set temperature
-    } 
-
-    if (dataTempRead < dataTempMax+2){
-      heaterDutyCycle = 0;
-    } 
-    setHeater();
-  }
-  return;
 }
 
 void setHeater(){
@@ -349,6 +319,29 @@ void setHeater(){
   else{
     digitalWrite(pinHeater, HIGH); // turn heater off
   }
+  return;
+}
+
+void regulateHeat(){
+  if (dataTempRead < dataTempMax-5){
+   digitalWrite(pinHeater, LOW);
+  }
+  else if (dataTempRead < dataTempMax-3){
+    heaterDutyCycle = 50;
+  }
+  else if (dataTempRead < dataTempMax-2){
+    heaterDutyCycle = 30;
+  }
+  else if (dataTempRead < dataTempMax-1){
+    heaterDutyCycle = 10;
+  }
+  else if (dataTempRead < dataTempMax+1){
+    heaterDutyCycle = 5;
+  }
+  else if (dataTempRead > dataTempMax+1 ){
+    heaterDutyCycle = 0;
+  }
+  setHeater();
   return;
 }
 
