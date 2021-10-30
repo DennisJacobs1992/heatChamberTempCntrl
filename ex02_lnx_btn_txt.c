@@ -84,7 +84,7 @@ clock_t buttonActiveTime;
 
 // Instantiate the GUI
 #define MAX_PAGE            1
-#define MAX_ELEM_PG_MAIN    16
+#define MAX_ELEM_PG_MAIN    17
 #define MAX_STR             100
 #define MAX_OVER_TEMP       1
 #define MIN_TEMP            20
@@ -512,7 +512,7 @@ int main( int argc, char* args[] )
 
   m_bQuit = false;
   while (!m_bQuit) {
-
+/*
     //check if quitstatus should be reset (is quittime expired 6 sec?)
     if ((clock()-quitTime) > (CLOCKS_PER_SEC*6) && quitStatus == 1){
       quitStatus = 0;
@@ -578,7 +578,7 @@ int main( int argc, char* args[] )
     if (preheatStatus == 1){
       regulateHeat();
     }
-
+*/
     //print time
     snprintf(acTxt,MAX_STR,"%02d",dataTimeDurationH);
     gslc_ElemSetTxtStr(&m_gui,pElemDataTimeH,acTxt);
