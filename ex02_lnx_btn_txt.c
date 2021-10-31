@@ -269,12 +269,12 @@ bool CbBtnPreHeat (void* pvGui,void *pvElemRef,gslc_teTouch eTouch,int16_t nX,in
       preheatStatus = 0;
       digitalWrite(pinFanOut, LOW);
       digitalWrite(pinFanInternal, HIGH);
-      digitalWrite(pinHeater, HIGH);
+      //digitalWrite(pinHeater, HIGH);
     }
     else{
       digitalWrite(pinFanOut, HIGH);
       digitalWrite(pinFanInternal, LOW);
-      digitalWrite(pinHeater, LOW);
+      //digitalWrite(pinHeater, LOW);
       preheatStatus = 1;
     }
   }
