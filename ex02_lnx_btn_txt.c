@@ -135,7 +135,7 @@ bool CbBtnLight(void* pvGui,void *pvElemRef,gslc_teTouch eTouch,int16_t nX,int16
   }
   else{
     //check if button was not pressed within 1s to reset the timer
-    if ((clock()-buttonActiveTime) > CLOCKS_PER_SEC){
+    if ((clock()-buttonActiveTime) > 300*(CLOCKS_PER_SEC/1000)){
       buttonActive = 0;
     }
   }
@@ -155,7 +155,7 @@ bool CbBtnMaxTempPlus(void* pvGui,void *pvElemRef,gslc_teTouch eTouch,int16_t nX
     }
     else{
       //check if button was not pressed within 300ms to reset the timer
-      if ((clock()-buttonActiveTime) > (300*(CLOCKS_PER_SEC/1000))){
+      if ((clock()-buttonActiveTime) > 300*(CLOCKS_PER_SEC/1000)){
         buttonActive = 0;
       }
     }
@@ -387,15 +387,6 @@ void executeRoutineTasks(){
       regulateHeat();
     }
   }
-  else{
-    if (preheatStatus == 0){
-      digitalWrite(pinLed, HIGH);
-      digitalWrite(pinFanInternal, HIGH);
-      digitalWrite(pinFanOut, HIGH);
-      digitalWrite(pinHeater, HIGH);
-      digitalWrite(pinPrinter, LOW);
-    }
-  }
 
   if (preheatStatus == 1){
     regulateHeat();
@@ -517,7 +508,7 @@ int main( int argc, char* args[] )
     "~C",0,E_FONT_TXTSMALL);
   gslc_ElemSetTxtCol(&m_gui,pElemRef,GSLC_COL_GRAY_LT2);
 
-  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_SensorData1,E_PG_MAIN,(gslc_tsRect){90,130,60,20},
+  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_SensorData1,E_PG_MAIN,(gslc_tsRect){90,130,200,20},
     "",4,E_FONT_TXTSMALL);
   gslc_ElemSetTxtCol(&m_gui,pElemRef,GSLC_COL_GRAY_LT2);
 
@@ -569,12 +560,12 @@ int main( int argc, char* args[] )
 
   m_bQuit = false;
   while (!m_bQuit) {
-    if(clock()-prevRoutine > CLOCKS_PER_SEC*2){
+    if(clock()-prevRoutine > CLOCKS_PER_SEC){
         prevRoutine = clock();
         executeRoutineTasks();
     }
     //print sensor temperature
-    snprintf(acTxt,MAX_STR,"%02f",dataTempSensor1);
+    snprintf(acTxt,MAX_STR,"%03f",dataTempSensor1);
     gslc_ElemSetTxtStr(&m_gui,pElemSensorData1,acTxt);
     snprintf(acTxt,MAX_STR,"%02f",dataTempSensor2);
     gslc_ElemSetTxtStr(&m_gui,pElemSensorData2,acTxt);
