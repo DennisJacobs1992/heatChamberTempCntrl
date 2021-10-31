@@ -364,6 +364,8 @@ void executeRoutineTasks(){
   }
 
   dataTempRead = (temperature[0] + temperature[1] + temperature[2]) / 3;
+  
+  /*
   //Start Stop Process (control the set temperature within the set time)
   if (startStopStatus == 1){
     preheatStatus = 0;
@@ -397,6 +399,7 @@ void executeRoutineTasks(){
   if (preheatStatus == 1){
     //regulateHeat();
   }
+  */
   return;
 }
 
@@ -515,7 +518,7 @@ int main( int argc, char* args[] )
   gslc_ElemSetTxtCol(&m_gui,pElemRef,GSLC_COL_GRAY_LT2);
 
   pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_SensorData1,E_PG_MAIN,(gslc_tsRect){90,130,30,20},
-    "",8,E_FONT_TXTSMALL);
+    "",2,E_FONT_TXTSMALL);
   gslc_ElemSetTxtCol(&m_gui,pElemRef,GSLC_COL_GRAY_LT2);
 
   pElemRef = gslc_ElemCreateTxt(&m_gui,GSLC_ID_AUTO,E_PG_MAIN,(gslc_tsRect){5,150,25,20},
@@ -527,7 +530,7 @@ int main( int argc, char* args[] )
   gslc_ElemSetTxtCol(&m_gui,pElemRef,GSLC_COL_GRAY_LT2);
 
   pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_SensorData2,E_PG_MAIN,(gslc_tsRect){90,150,30,20},
-    "",1,E_FONT_TXTSMALL);
+    "",6,E_FONT_TXTSMALL);
   gslc_ElemSetTxtCol(&m_gui,pElemRef,GSLC_COL_GRAY_LT2);
 
   pElemRef = gslc_ElemCreateTxt(&m_gui,GSLC_ID_AUTO,E_PG_MAIN,(gslc_tsRect){5,170,25,20},
@@ -566,16 +569,16 @@ int main( int argc, char* args[] )
 
   m_bQuit = false;
   while (!m_bQuit) {
-    if(clock()-prevRoutine > CLOCKS_PER_SEC){
+    if(clock()-prevRoutine > CLOCKS_PER_SEC*2){
         prevRoutine = clock();
         executeRoutineTasks();
     }
     //print sensor temperature
     snprintf(acTxt,MAX_STR,"%02f",dataTempSensor1);
     gslc_ElemSetTxtStr(&m_gui,pElemSensorData1,acTxt);
-    snprintf(acTxt,MAX_STR,"%08f",dataTempSensor2);
+    snprintf(acTxt,MAX_STR,"%02f",dataTempSensor2);
     gslc_ElemSetTxtStr(&m_gui,pElemSensorData2,acTxt);
-    snprintf(acTxt,MAX_STR,"%00f",dataTempSensor3);
+    snprintf(acTxt,MAX_STR,"%02f",dataTempSensor3);
     gslc_ElemSetTxtStr(&m_gui,pElemSensorData3,acTxt);
 
     //print time
