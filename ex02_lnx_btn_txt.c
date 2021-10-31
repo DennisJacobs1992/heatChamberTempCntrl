@@ -269,12 +269,12 @@ bool CbBtnPreHeat (void* pvGui,void *pvElemRef,gslc_teTouch eTouch,int16_t nX,in
       preheatStatus = 0;
       digitalWrite(pinFanOut, LOW);
       digitalWrite(pinFanInternal, HIGH);
-      //digitalWrite(pinHeater, HIGH);
+      digitalWrite(pinHeater, HIGH);
     }
     else{
       digitalWrite(pinFanOut, HIGH);
       digitalWrite(pinFanInternal, LOW);
-      //digitalWrite(pinHeater, LOW);
+      digitalWrite(pinHeater, LOW);
       preheatStatus = 1;
     }
   }
@@ -362,9 +362,7 @@ void executeRoutineTasks(){
       break;
     }
   }
-
   dataTempRead = (temperature[0] + temperature[1] + temperature[2]) / 3;
-  
   /*
   //Start Stop Process (control the set temperature within the set time)
   if (startStopStatus == 1){
@@ -517,7 +515,7 @@ int main( int argc, char* args[] )
     "~C",0,E_FONT_TXTSMALL);
   gslc_ElemSetTxtCol(&m_gui,pElemRef,GSLC_COL_GRAY_LT2);
 
-  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_SensorData1,E_PG_MAIN,(gslc_tsRect){90,130,30,20},
+  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_SensorData1,E_PG_MAIN,(gslc_tsRect){90,130,50,20},
     "",6,E_FONT_TXTSMALL);
   gslc_ElemSetTxtCol(&m_gui,pElemRef,GSLC_COL_GRAY_LT2);
 
@@ -541,7 +539,7 @@ int main( int argc, char* args[] )
     "~C",0,E_FONT_TXTSMALL);
   gslc_ElemSetTxtCol(&m_gui,pElemRef,GSLC_COL_GRAY_LT2);
 
-    pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_SensorData3,E_PG_MAIN,(gslc_tsRect){90,170,80,20},
+    pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_SensorData3,E_PG_MAIN,(gslc_tsRect){90,170,50,20},
     "",6,E_FONT_TXTSMALL);
   gslc_ElemSetTxtCol(&m_gui,pElemRef,GSLC_COL_GRAY_LT2);
 
@@ -574,11 +572,11 @@ int main( int argc, char* args[] )
         executeRoutineTasks();
     }
     //print sensor temperature
-    snprintf(acTxt,MAX_STR,"%02f",dataTempSensor1);
+    snprintf(acTxt,MAX_STR,"%04f",dataTempSensor1);
     gslc_ElemSetTxtStr(&m_gui,pElemSensorData1,acTxt);
     snprintf(acTxt,MAX_STR,"%04f",dataTempSensor2);
     gslc_ElemSetTxtStr(&m_gui,pElemSensorData2,acTxt);
-    snprintf(acTxt,MAX_STR,"%06f",dataTempSensor3);
+    snprintf(acTxt,MAX_STR,"%04f",dataTempSensor3);
     gslc_ElemSetTxtStr(&m_gui,pElemSensorData3,acTxt);
 
     //print time
