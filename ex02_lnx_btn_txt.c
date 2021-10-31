@@ -316,7 +316,7 @@ void setHeater(){
 
 void regulateHeat(){
   if (dataTempRead < dataTempMax-5){
-   digitalWrite(pinHeater, LOW);
+    digitalWrite(pinHeater, LOW);
   }
   else if (dataTempRead < dataTempMax-3){
     heaterDutyCycle = 50;
@@ -385,6 +385,15 @@ void executeRoutineTasks(){
     }
     else{
       regulateHeat();
+    }
+  }
+  else{
+    if (preheatStatus == 0){
+      digitalWrite(pinLed, HIGH);
+      digitalWrite(pinFanInternal, HIGH);
+      digitalWrite(pinFanOut, HIGH);
+      digitalWrite(pinHeater, HIGH);
+      digitalWrite(pinPrinter, LOW);
     }
   }
 
@@ -509,7 +518,7 @@ int main( int argc, char* args[] )
   gslc_ElemSetTxtCol(&m_gui,pElemRef,GSLC_COL_GRAY_LT2);
 
   pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_SensorData1,E_PG_MAIN,(gslc_tsRect){90,130,25,20},
-    "",0,E_FONT_TXTSMALL);
+    "",4,E_FONT_TXTSMALL);
   gslc_ElemSetTxtCol(&m_gui,pElemRef,GSLC_COL_GRAY_LT2);
 
   pElemRef = gslc_ElemCreateTxt(&m_gui,GSLC_ID_AUTO,E_PG_MAIN,(gslc_tsRect){5,150,25,20},
