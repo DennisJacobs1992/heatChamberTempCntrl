@@ -267,8 +267,14 @@ bool CbBtnPreHeat (void* pvGui,void *pvElemRef,gslc_teTouch eTouch,int16_t nX,in
     buttonActiveTime = clock();
     if (preheatStatus == 1){
       preheatStatus = 0;
+      digitalWrite(pinFanOut, LOW);
+      digitalWrite(pinFanInternal, HIGH);
+      digitalWrite(pinHeater, HIGH);
     }
     else{
+      digitalWrite(pinFanOut, HIGH);
+      digitalWrite(pinFanInternal, LOW);
+      digitalWrite(pinHeater, LOW);
       preheatStatus = 1;
     }
   }
@@ -384,12 +390,12 @@ void executeRoutineTasks(){
       digitalWrite(pinPrinter, LOW);
     }
     else{
-      regulateHeat();
+      //regulateHeat();
     }
   }
 
   if (preheatStatus == 1){
-    regulateHeat();
+    //regulateHeat();
   }
   return;
 }
@@ -508,8 +514,8 @@ int main( int argc, char* args[] )
     "~C",0,E_FONT_TXTSMALL);
   gslc_ElemSetTxtCol(&m_gui,pElemRef,GSLC_COL_GRAY_LT2);
 
-  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_SensorData1,E_PG_MAIN,(gslc_tsRect){90,130,200,20},
-    "",4,E_FONT_TXTSMALL);
+  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_SensorData1,E_PG_MAIN,(gslc_tsRect){90,130,30,20},
+    "",8,E_FONT_TXTSMALL);
   gslc_ElemSetTxtCol(&m_gui,pElemRef,GSLC_COL_GRAY_LT2);
 
   pElemRef = gslc_ElemCreateTxt(&m_gui,GSLC_ID_AUTO,E_PG_MAIN,(gslc_tsRect){5,150,25,20},
@@ -520,8 +526,8 @@ int main( int argc, char* args[] )
     "~C",0,E_FONT_TXTSMALL);
   gslc_ElemSetTxtCol(&m_gui,pElemRef,GSLC_COL_GRAY_LT2);
 
-  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_SensorData2,E_PG_MAIN,(gslc_tsRect){90,150,25,20},
-    "",0,E_FONT_TXTSMALL);
+  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_SensorData2,E_PG_MAIN,(gslc_tsRect){90,150,30,20},
+    "",1,E_FONT_TXTSMALL);
   gslc_ElemSetTxtCol(&m_gui,pElemRef,GSLC_COL_GRAY_LT2);
 
   pElemRef = gslc_ElemCreateTxt(&m_gui,GSLC_ID_AUTO,E_PG_MAIN,(gslc_tsRect){5,170,25,20},
@@ -532,7 +538,7 @@ int main( int argc, char* args[] )
     "~C",0,E_FONT_TXTSMALL);
   gslc_ElemSetTxtCol(&m_gui,pElemRef,GSLC_COL_GRAY_LT2);
 
-    pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_SensorData3,E_PG_MAIN,(gslc_tsRect){90,170,25,20},
+    pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_SensorData3,E_PG_MAIN,(gslc_tsRect){90,170,30,20},
     "",0,E_FONT_TXTSMALL);
   gslc_ElemSetTxtCol(&m_gui,pElemRef,GSLC_COL_GRAY_LT2);
 
@@ -565,11 +571,11 @@ int main( int argc, char* args[] )
         executeRoutineTasks();
     }
     //print sensor temperature
-    snprintf(acTxt,MAX_STR,"%03f",dataTempSensor1);
+    snprintf(acTxt,MAX_STR,"%02f",dataTempSensor1);
     gslc_ElemSetTxtStr(&m_gui,pElemSensorData1,acTxt);
-    snprintf(acTxt,MAX_STR,"%02f",dataTempSensor2);
+    snprintf(acTxt,MAX_STR,"%08f",dataTempSensor2);
     gslc_ElemSetTxtStr(&m_gui,pElemSensorData2,acTxt);
-    snprintf(acTxt,MAX_STR,"%02f",dataTempSensor3);
+    snprintf(acTxt,MAX_STR,"%00f",dataTempSensor3);
     gslc_ElemSetTxtStr(&m_gui,pElemSensorData3,acTxt);
 
     //print time
