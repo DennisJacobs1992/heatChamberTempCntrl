@@ -517,7 +517,7 @@ int main( int argc, char* args[] )
     "~C",0,E_FONT_TXTSMALL);
   gslc_ElemSetTxtCol(&m_gui,pElemRef,GSLC_COL_GRAY_LT2);
 
-  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_SensorData1,E_PG_MAIN,(gslc_tsRect){90,130,25,20},
+  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_SensorData1,E_PG_MAIN,(gslc_tsRect){90,130,60,20},
     "",4,E_FONT_TXTSMALL);
   gslc_ElemSetTxtCol(&m_gui,pElemRef,GSLC_COL_GRAY_LT2);
 
@@ -569,7 +569,7 @@ int main( int argc, char* args[] )
 
   m_bQuit = false;
   while (!m_bQuit) {
-    if(clock()-prevRoutine > CLOCKS_PER_SEC*10){
+    if(clock()-prevRoutine > CLOCKS_PER_SEC*2){
         prevRoutine = clock();
         executeRoutineTasks();
     }
