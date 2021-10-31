@@ -518,7 +518,7 @@ int main( int argc, char* args[] )
   gslc_ElemSetTxtCol(&m_gui,pElemRef,GSLC_COL_GRAY_LT2);
 
   pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_SensorData1,E_PG_MAIN,(gslc_tsRect){90,130,30,20},
-    "",2,E_FONT_TXTSMALL);
+    "",6,E_FONT_TXTSMALL);
   gslc_ElemSetTxtCol(&m_gui,pElemRef,GSLC_COL_GRAY_LT2);
 
   pElemRef = gslc_ElemCreateTxt(&m_gui,GSLC_ID_AUTO,E_PG_MAIN,(gslc_tsRect){5,150,25,20},
@@ -542,7 +542,7 @@ int main( int argc, char* args[] )
   gslc_ElemSetTxtCol(&m_gui,pElemRef,GSLC_COL_GRAY_LT2);
 
     pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_SensorData3,E_PG_MAIN,(gslc_tsRect){90,170,30,20},
-    "",0,E_FONT_TXTSMALL);
+    "",6,E_FONT_TXTSMALL);
   gslc_ElemSetTxtCol(&m_gui,pElemRef,GSLC_COL_GRAY_LT2);
 
   pElemRef = gslc_ElemCreateTxt(&m_gui,GSLC_ID_AUTO,E_PG_MAIN,(gslc_tsRect){5,205,25,20},
@@ -576,9 +576,9 @@ int main( int argc, char* args[] )
     //print sensor temperature
     snprintf(acTxt,MAX_STR,"%02f",dataTempSensor1);
     gslc_ElemSetTxtStr(&m_gui,pElemSensorData1,acTxt);
-    snprintf(acTxt,MAX_STR,"%02f",dataTempSensor2);
+    snprintf(acTxt,MAX_STR,"%03f",dataTempSensor2);
     gslc_ElemSetTxtStr(&m_gui,pElemSensorData2,acTxt);
-    snprintf(acTxt,MAX_STR,"%02f",dataTempSensor3);
+    snprintf(acTxt,MAX_STR,"%04f",dataTempSensor3);
     gslc_ElemSetTxtStr(&m_gui,pElemSensorData3,acTxt);
 
     //print time
